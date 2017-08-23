@@ -1,0 +1,2 @@
+{0(x|X)[:xdigits:]('?[:xdigits:])* | [:digits:]+ | 
+0(b|B)[:bdigits:]+ | 0(o|O)[:odigits:]+}

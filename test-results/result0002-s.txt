@@ -1,0 +1,59 @@
+Unexpected end of text at line 35.
+Char_class, action_name: 0 {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'}
+Char_class, action_name: 0 {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}
+Or, action_name: 0 {first_arg: 0, second_arg: 1}
+Char_class, action_name: 0 {'Ё','А','Б','В','Г','Д','Е','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'}
+Or, action_name: 0 {first_arg: 2, second_arg: 3}
+Char_class, action_name: 0 {'а','б','в','г','д','е','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я','ё'}
+Or, action_name: 0 {first_arg: 4, second_arg: 5}
+Char_class, action_name: 0 {'0','1'}
+Or, action_name: 0 {first_arg: 6, second_arg: 7}
+Char, action_name: 0 '_'
+Or, action_name: 0 {first_arg: 8, second_arg: 9}
+Positive, action_name: 0 {first_arg: 10, second_arg: 0}
+Char_class, action_name: 0 {'0','1','2','3','4','5','6','7','8','9'}
+Optional, action_name: 0 {first_arg: 12, second_arg: 0}
+Concat, action_name: 0 {first_arg: 11, second_arg: 13}
+Char_class, action_name: 0 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+Kleene, action_name: 0 {first_arg: 15, second_arg: 0}
+Concat, action_name: 0 {first_arg: 14, second_arg: 16}
+Char, action_name: 0 '['
+Concat, action_name: 0 {first_arg: 17, second_arg: 18}
+Char, action_name: 0 ']'
+Concat, action_name: 0 {first_arg: 19, second_arg: 20}
+Char, action_name: 0 '\n'
+Concat, action_name: 0 {first_arg: 21, second_arg: 22}
+Char, action_name: 0 '\'
+Concat, action_name: 0 {first_arg: 23, second_arg: 24}
+Char, action_name: 0 "
+Concat, action_name: 0 {first_arg: 25, second_arg: 26}
+Char, action_name: 0 '$'
+Concat, action_name: 0 {first_arg: 27, second_arg: 28}
+Char, action_name: 0 '?'
+Concat, action_name: 0 {first_arg: 29, second_arg: 30}
+Char, action_name: 0 '|'
+Concat, action_name: 0 {first_arg: 31, second_arg: 32}
+Char, action_name: 0 '+'
+Concat, action_name: 0 {first_arg: 33, second_arg: 34}
+Char, action_name: 0 '*'
+Concat, action_name: 0 {first_arg: 35, second_arg: 36}
+Char, action_name: 0 '{'
+Concat, action_name: 0 {first_arg: 37, second_arg: 38}
+Char, action_name: 0 '}'
+Concat, action_name: 0 {first_arg: 39, second_arg: 40}
+Char, action_name: 0 '('
+Concat, action_name: 0 {first_arg: 41, second_arg: 42}
+Char, action_name: 0 ')'
+Concat, action_name: 0 {first_arg: 43, second_arg: 44}
+Char, action_name: 0 'Ё'
+Concat, action_name: 0 {first_arg: 45, second_arg: 46}
+Char_class, action_name: 0 {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ё','А','Б','В','Г','Д','Е','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'}
+Concat, action_name: 0 {first_arg: 47, second_arg: 48}
+Char_class, action_name: 0 {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','а','б','в','г','д','е','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я','ё'}
+Concat, action_name: 0 {first_arg: 49, second_arg: 50}
+Char_class_complement, action_name: 0 {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W'}
+Concat, action_name: 0 {first_arg: 51, second_arg: 52}
+Char_class_complement, action_name: 0 {"}
+Concat, action_name: 0 {first_arg: 53, second_arg: 54}
+Char, action_name: 0 '^'
+Concat, action_name: 0 {first_arg: 55, second_arg: 56}
