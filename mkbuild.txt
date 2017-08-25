@@ -1,4 +1,4 @@
-project(test-arp)
+project(test-aut)
 compiler(g++)
 linker(g++)
 source_dir("src")
