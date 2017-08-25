@@ -28,6 +28,7 @@
 #include "../include/scope.h"
 #include "../include/expr_lr_tables.h"
 #include "../include/slr_act_expr_parser.h"
+#include "../include/fuse_commands.h"
 // #include "../include/act_expr_parser.h"
 
 // #include "../include/test_expr_scaner.h"
@@ -62,6 +63,18 @@ std::u32string init_testing(const char* name)
 
 static const char32_t* write_act_name = U"write";
 static const char32_t* write_act_body = U"buffer += ch;";
+
+static const char* before_fusing =
+    R"~(
+***********************************************************
+*                     Before fusing:                      *
+***********************************************************)~";
+
+static const char* after_fusing =
+    R"~(
+***********************************************************
+*                     After fusing:                       *
+***********************************************************)~";
 
 int main(int argc, char** argv)
 {
@@ -107,6 +120,11 @@ int main(int argc, char** argv)
 // #else
 //             arp->compile(commands, Number_expr);
 // #endif
+            puts(before_fusing);
+            print_commands(commands, trie_for_sets);
+
+            puts(after_fusing);
+            auto fused = fuse_commands(commands);
             print_commands(commands, trie_for_sets);
         }
     }

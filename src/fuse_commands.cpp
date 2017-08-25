@@ -38,7 +38,7 @@ static const size_t leaves =
 
 static inline bool is_leaf(const Command& c)
 {
-    return belongs(c.name, leaves);
+    return belongs(static_cast<uint64_t>(c.name), leaves);
 }
 
 static void insert_command_args(Command_buffer& out, const Command_buffer& inp, size_t idx)
@@ -58,7 +58,7 @@ static void  fuse_commandsR(Command_buffer& out, const Command_buffer& inp, size
 {
     Command      com = inp[curr_idx];
     Command_name n   = com.name;
-    size_t       fst_idx, snd_idx;
+    size_t       fst_idx;
     switch(n){
         case Command_name::Or:      case Command_name::Multior:
             fuse_oc(out, inp, curr_idx, Command_name::Multior);
@@ -84,7 +84,7 @@ static void  fuse_oc(Command_buffer& out,      const Command_buffer& inp,
                      size_t          curr_idx, Command_name          cn)
 {
     Command      com     = inp[curr_idx];
-    Command_name n       = com.name;
+//     Command_name n       = com.name;
     auto         args    = com.args;
     size_t       fst_idx = args.first;
     size_t       snd_idx = args.second;
@@ -112,22 +112,22 @@ static void  fuse_oc(Command_buffer& out,      const Command_buffer& inp,
 
     Args_kinds k = static_cast<Args_kinds>(m1 * 2 + m2);
     switch(k){
-        case Leaf_leaf:
+        case Args_kinds::Leaf_leaf:
             fuse_commandsR(out, inp, fst_idx);
             com.args.first   = out.size() - 1;
             fuse_commandsR(out, inp, snd_idx);
             break;
-        case Leaf_m:
+        case Args_kinds::Leaf_m:
             com.args.first   = out.size();
             fuse_commandsR(out, inp, fst_idx);
             insert_command_args(out, inp, snd_idx);
             break;
-        case M_leaf:
+        case Args_kinds::M_leaf:
             com.args.first   = out.size();
             insert_command_args(out, inp, fst_idx);
             fuse_commandsR(out, inp, snd_idx);
             break;
-        case M_m:
+        case Args_kinds::M_m:
             com.args.first   = out.size();
             insert_command_args(out, inp, fst_idx);
             insert_command_args(out, inp, snd_idx);
