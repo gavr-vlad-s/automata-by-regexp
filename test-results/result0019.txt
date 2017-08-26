@@ -1,0 +1,52 @@
+
+***********************************************************
+*                     Before fusing:                      *
+***********************************************************
+0000: Char_class_complement, action_name: 5 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ё','А','Б','В','Г','Д','Е','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'}
+0001: Char, action_name: 0 't'
+0002: Concat, action_name: 0 {first_arg: 0, second_arg: 1}
+0003: Char, action_name: 0 'm'
+0004: Concat, action_name: 0 {first_arg: 2, second_arg: 3}
+0005: Char, action_name: 0 'y'
+0006: Concat, action_name: 0 {first_arg: 4, second_arg: 5}
+0007: Char, action_name: 0 'p'
+0008: Optional, action_name: 0 {first_arg: 7, second_arg: 0}
+0009: Char, action_name: 0 'q'
+0010: Positive, action_name: 0 {first_arg: 9, second_arg: 0}
+0011: Concat, action_name: 0 {first_arg: 8, second_arg: 10}
+0012: Char, action_name: 0 'r'
+0013: Kleene, action_name: 0 {first_arg: 12, second_arg: 0}
+0014: Concat, action_name: 0 {first_arg: 11, second_arg: 13}
+0015: Or, action_name: 0 {first_arg: 6, second_arg: 14}
+0016: Char, action_name: 0 'g'
+0017: Char, action_name: 0 'f'
+0018: Concat, action_name: 0 {first_arg: 16, second_arg: 17}
+0019: Char, action_name: 0 'd'
+0020: Concat, action_name: 0 {first_arg: 18, second_arg: 19}
+0021: Char, action_name: 0 'w'
+0022: Concat, action_name: 0 {first_arg: 20, second_arg: 21}
+0023: Or, action_name: 0 {first_arg: 15, second_arg: 22}
+
+***********************************************************
+*                     After fusing:                       *
+***********************************************************
+0000: Char_class_complement, action_name: 5 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ё','А','Б','В','Г','Д','Е','Ж','З','И','Й','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Ъ','Ы','Ь','Э','Ю','Я'}
+0001: Char, action_name: 0 't'
+0002: Char, action_name: 0 'm'
+0003: Char, action_name: 0 'y'
+0004: Multiconcat, action_name: 0 {first_arg: 2, second_arg: 3}
+0005: Char, action_name: 0 'p'
+0006: Optional, action_name: 0 {first_arg: 0, second_arg: 0}
+0007: Char, action_name: 0 'q'
+0008: Positive, action_name: 0 {first_arg: 0, second_arg: 0}
+0009: Concat, action_name: 0 {first_arg: 1, second_arg: 3}
+0010: Char, action_name: 0 'r'
+0011: Kleene, action_name: 0 {first_arg: 0, second_arg: 0}
+0012: Concat, action_name: 0 {first_arg: 4, second_arg: 6}
+0013: Or, action_name: 0 {first_arg: 4, second_arg: 12}
+0014: Char, action_name: 0 'g'
+0015: Char, action_name: 0 'f'
+0016: Char, action_name: 0 'd'
+0017: Char, action_name: 0 'w'
+0018: Multiconcat, action_name: 0 {first_arg: 2, second_arg: 3}
+0019: Or, action_name: 0 {first_arg: 13, second_arg: 18}
