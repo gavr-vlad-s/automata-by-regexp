@@ -125,7 +125,7 @@ int main(int argc, char** argv)
 
             puts(after_fusing);
             auto fused = fuse_commands(commands);
-            print_commands(commands, trie_for_sets);
+            print_commands(fused, trie_for_sets);
         }
     }
     return 0;
