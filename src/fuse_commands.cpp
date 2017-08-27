@@ -43,19 +43,6 @@ static inline bool is_leaf(const Command& c)
 
 using Combuf = Command_buffer;
 
-// static void insert_command_args(Combuf& out, const Combuf& inp, size_t idx)
-// {
-//     Command com    = inp[idx];
-//     auto    args   = com.args;
-//     auto    inpb   = inp.begin();
-//     auto    fst_it = inpb + args.first;
-//     auto    snd_it = inpb + args.second + 1;
-//     out.insert(out.end(), fst_it, snd_it);
-// }
-
-// static void  fuse_oc(Combuf& out,      const Combuf& inp,
-//                      size_t          curr_idx, Command_name          cn);
-
 static void fuse_or(Combuf& out, const Combuf& inp, size_t curr_idx);
 
 static void fuse_concat(Combuf& out, const Combuf& inp, size_t curr_idx);
@@ -86,124 +73,141 @@ static void  fuse_commandsR(Combuf& out, const Combuf& inp, size_t curr_idx)
     }
 }
 
-static void fuse_bufs(Combuf& inp1, Combuf& inp2)
-{
-    size_t s1 = inp1.size();
-    for(auto c : inp2){
-        switch(c.name){
-            case Command_name::Or:       case Command_name::Multior:
-            case Command_name::Concat:   case Command_name::Multiconcat:
-                c.args.first  += s1;
-                c.args.second += s1;
-                break;
-            case Command_name::Kleene:   case Command_name::Positive:
-            case Command_name::Optional:
-                c.args.first  += s1;
-                break;
-            default:
-                ;
-        }
-    }
-    inp1.insert(inp1.end(), inp2.begin(), inp2.end());
-}
-
 static void fuse_or(Combuf& out, const Combuf& inp, size_t curr_idx)
 {
-    Command      com     = inp[curr_idx];
-    auto         args    = com.args;
-    size_t       fst_idx = args.first;
-    size_t       snd_idx = args.second;
+    Command      com           = inp[curr_idx];
+    auto         args          = com.args;
+    size_t       fst_idx       = args.first;
+    size_t       snd_idx       = args.second;
+    bool         left_is_leaf  = is_leaf(inp[fst_idx]);
+    bool         right_is_leaf = is_leaf(inp[snd_idx]);
 
-    Combuf       argv1;
-    Combuf       argv2;
-
-    fuse_commandsR(argv1, inp, fst_idx);
-    fuse_commandsR(argv2, inp, snd_idx);
-
-    auto         fst_arg = argv1.back();
-    auto         snd_arg = argv2.back();
-    bool         m1      = fst_arg.name == Command_name::Multior;
-    bool         m2      = snd_arg.name == Command_name::Multior;
-    bool         t1      = is_leaf(fst_arg) || m1;
-    bool         t2      = is_leaf(snd_arg) || m2;
-
-    if(!(t1 && t2)){
-        size_t s         = out.size();
-        fst_idx          = argv1.size() + s - 1;
-        fuse_bufs(argv1, argv2);
-        snd_idx          = argv1.size() + s - 1;
-        fuse_bufs(out, argv1);
-        com.name         = Command_name::Or;
-        com.args.first   = fst_idx;
-        com.args.second  = snd_idx;
+    if(left_is_leaf){
+        size_t       s         = out.size();
+        fuse_commandsR(out, inp, fst_idx);
+        fuse_commandsR(out, inp, snd_idx);
+        if(right_is_leaf){
+            com.args.first   = s;
+            com.args.second  = s + 1;
+            com.name         = Command_name::Multior;
+            out.push_back(com);
+            return;
+        }
+        Command snd_arg        = out.back();
+        if(Command_name::Multior == snd_arg.name){
+            out.back().args.first = s;
+            return;
+        }
+        com.args.first  = s;
+        com.args.second = out.size() - 1;
+        com.name        = Command_name::Or;
         out.push_back(com);
         return;
     }
 
-    if(m1){
-        argv1.pop_back();
+    fuse_commandsR(out, inp, fst_idx);
+    Command fst_arg         = out.back();
+    if(Command_name::Multior == fst_arg.name){
+        if(right_is_leaf){
+            com.args        = fst_arg.args;
+            com.name        = Command_name::Multior;
+            com.args.second = out.size() - 1;
+            out.back()      = inp[snd_idx];
+            out.push_back(com);
+            return;
+        }
+        size_t s             = out.size() - 1;
+        fuse_commandsR(out, inp, snd_idx);
+        Command      snd_arg = out.back();
+        if(Command_name::Multior == snd_arg.name){
+            com.args        = out[s].args;
+            out.erase(out.begin() + s);
+            com.args.second = snd_arg.args.second - 1;
+            com.name        = Command_name::Multior;
+            out.push_back(com);
+            return;
+        }
+        com.args.first  = s;
+        fuse_commandsR(out, inp, snd_idx);
+        com.args.second = out.size() - 1;
+        com.name        = Command_name::Or;
+        out.push_back(com);
+        return;
     }
-    if(m2){
-        argv2.pop_back();
-    }
-    size_t     s     = out.size();
-    fst_idx          = argv1.size() + s - 1;
-    fuse_bufs(argv1, argv2);
-    snd_idx          = argv1.size() + s - 1;
-    fuse_bufs(out, argv1);
-    com.name         = Command_name::Multior;
-    com.args.first   = fst_idx;
-    com.args.second  = snd_idx;
+
+    com.args.first  = out.size() - 1;
+    fuse_commandsR(out, inp, snd_idx);
+    com.args.second = out.size() - 1;
+    com.name        = Command_name::Or;
     out.push_back(com);
 }
 
 static void fuse_concat(Combuf& out, const Combuf& inp, size_t curr_idx)
 {
-    Command      com     = inp[curr_idx];
-    auto         args    = com.args;
-    size_t       fst_idx = args.first;
-    size_t       snd_idx = args.second;
+    Command      com           = inp[curr_idx];
+    auto         args          = com.args;
+    size_t       fst_idx       = args.first;
+    size_t       snd_idx       = args.second;
+    bool         left_is_leaf  = is_leaf(inp[fst_idx]);
+    bool         right_is_leaf = is_leaf(inp[snd_idx]);
 
-    Combuf       argv1;
-    Combuf       argv2;
-
-    fuse_commandsR(argv1, inp, fst_idx);
-    fuse_commandsR(argv2, inp, snd_idx);
-
-    auto         fst_arg = argv1.back();
-    auto         snd_arg = argv2.back();
-    bool         m1      = fst_arg.name == Command_name::Multiconcat;
-    bool         m2      = snd_arg.name == Command_name::Multiconcat;
-    bool         t1      = is_leaf(fst_arg) || m1;
-    bool         t2      = is_leaf(snd_arg) || m2;
-
-    if(!(t1 && t2)){
-        size_t s         = out.size();
-        fst_idx          = argv1.size() + s - 1;
-        fuse_bufs(argv1, argv2);
-        snd_idx          = argv1.size() + s - 1;
-        fuse_bufs(out, argv1);
-        com.name         = Command_name::Concat;
-        com.args.first   = fst_idx;
-        com.args.second  = snd_idx;
+    if(left_is_leaf){
+        size_t       s         = out.size();
+        fuse_commandsR(out, inp, fst_idx);
+        fuse_commandsR(out, inp, snd_idx);
+        if(right_is_leaf){
+            com.args.first   = s;
+            com.args.second  = s + 1;
+            com.name         = Command_name::Multiconcat;
+            out.push_back(com);
+            return;
+        }
+        Command      snd_arg = out.back();
+        if(Command_name::Multiconcat == snd_arg.name){
+            out.back().args.first = s;
+            return;
+        }
+        com.args.first  = s;
+        com.args.second = out.size() - 1;
+        com.name        = Command_name::Concat;
         out.push_back(com);
         return;
     }
 
-    if(m1){
-        argv1.pop_back();
+    fuse_commandsR(out, inp, fst_idx);
+    Command         fst_arg = out.back();
+    if(Command_name::Multiconcat == fst_arg.name){
+        if(right_is_leaf){
+            com.args        = fst_arg.args;
+            com.name        = Command_name::Multiconcat;
+            com.args.second = out.size() - 1;
+            out.back()      = inp[snd_idx];
+            out.push_back(com);
+            return;
+        }
+        size_t s             = out.size() - 1;
+        fuse_commandsR(out, inp, snd_idx);
+        Command      snd_arg = out.back();
+        if(Command_name::Multiconcat == snd_arg.name){
+            com.args        = out[s].args;
+            out.erase(out.begin() + s);
+            com.args.second = snd_arg.args.second - 1;
+            com.name        = Command_name::Multiconcat;
+            out.push_back(com);
+            return;
+        }
+        com.args.first  = s;
+        fuse_commandsR(out, inp, snd_idx);
+        com.args.second = out.size() - 1;
+        com.name        = Command_name::Concat;
+        out.push_back(com);
+        return;
     }
-    if(m2){
-        argv2.pop_back();
-    }
-    size_t     s     = out.size();
-    fst_idx          = argv1.size() + s - 1;
-    fuse_bufs(argv1, argv2);
-    snd_idx          = argv1.size() + s - 1;
-    fuse_bufs(out, argv1);
-    com.name         = Command_name::Multiconcat;
-    com.args.first   = fst_idx;
-    com.args.second  = snd_idx;
+
+    com.args.first  = out.size() - 1;
+    fuse_commandsR(out, inp, snd_idx);
+    com.args.second = out.size() - 1;
+    com.name        = Command_name::Concat;
     out.push_back(com);
 }
 
