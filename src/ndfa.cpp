@@ -111,8 +111,8 @@ static void or_builder(NDFA&  a,           const  Command_buffer& commands,
     /* Next, we glue a1 and a2 with the addition of states to a. */
     size_t final_st  = a2.final_state + 1;
     auto last_state = std::make_pair(single_elem(final_st),0);
-    add_state_jumps(a1.jumps.back(), eps_gc, last_state);
-    add_state_jumps(a2.jumps.back(), eps_gc, last_state);
+    add_state_jumps(a1.jumps.back(), eps, last_state);
+    add_state_jumps(a2.jumps.back(), eps, last_state);
     a.jumps.push_back(state_jumps);
     a.jumps.insert(a.jumps.end(), a1.jumps.begin(), a1.jumps.end());
     a.jumps.insert(a.jumps.end(), a2.jumps.begin(), a2.jumps.end());
@@ -120,3 +120,87 @@ static void or_builder(NDFA&  a,           const  Command_buffer& commands,
     a.begin_state = first_state_nom;
     a.final_state = final_st;
 }
+
+static void concat_builder(NDFA&  a,           const  Command_buffer& commands,
+                           size_t command_nom, size_t first_state_nom)
+{
+    auto& com = commands[command_nom];
+    NDFA a1, a2;
+    NDFA_state_jumps state_jumps1, state_jumps2;
+    generate_NDFA_for_command(a1, commands, com.args.first, first_state_nom);
+    generate_NDFA_for_command(a2, commands, com.args.second, a1.final_state);
+    /* Next, we glue a1 and a2 with the addition of states to a. */
+    /* Let us glue the begin state of the automaton a2 with the final
+     * state of the automaton a1. */
+    state_jumps1 = a1.jumps.back();
+    state_jumps2 = a2.jumps[0];
+    for(auto sj : state_jumps2){
+        add_state_jumps(state_jumps1, sj.first, sj.second);
+    }
+    /* Then we add the states of the automaton a1 (except the final one). */
+    a.jumps.insert(a.jumps.end(), a1.jumps.begin(), a1.jumps.end() - 1);
+    /* Add the glued state. */
+    a.jumps.push_back(state_jumps1);
+    /* Finally, we add other states of the automaton a2. */
+    a.jumps.insert(a.jumps.end(), a2.jumps.begin() + 1, a2.jumps.end());
+    a.begin_state = first_state_nom;
+    a.final_state = a2.final_state;
+}
+
+static void kleene_builder(NDFA&  a,           const  Command_buffer& commands,
+                           size_t command_nom, size_t first_state_nom)
+{
+    auto& com = commands[command_nom];
+    NDFA              a_without_clos;
+    NDFA_state_jumps  state_jumps;
+
+    generate_NDFA_for_command(a_without_clos, commands, com.args.first,
+                              first_state_nom + 1);
+
+    size_t             final_st = a_without_clos.final_state + 1;
+    Set_of_states s {a_without_clos.begin_state, final_st};
+    States_with_action temp_jumps = std::make_pair(s,0);
+
+    add_state_jumps(a_without_clos.jumps.back(), eps, temp_jumps);
+
+    state_jumps[eps] = temp_jumps;
+
+    a.jumps.push_back(state_jumps);
+    a.jumps.insert(a.jumps.end(), a_without_clos.jumps.begin(),
+                   a_without_clos.jumps.end());
+    a.jumps.push_back(NDFA_state_jumps());
+    a.begin_state = first_state_nom;
+    a.final_state = final_st;
+}
+
+static void positive_builder(NDFA&  a,           const  Command_buffer& commands,
+                             size_t command_nom, size_t first_state_nom)
+{}
+
+static void optional_builder(NDFA&  a,           const  Command_buffer& commands,
+                             size_t command_nom, size_t first_state_nom)
+{}
+
+static void char_builder(NDFA&  a,           const  Command_buffer& commands,
+                         size_t command_nom, size_t first_state_nom)
+{}
+
+static void char_class_builder(NDFA&  a,           const  Command_buffer& commands,
+                               size_t command_nom, size_t first_state_nom)
+{}
+
+static void unknown_builder(NDFA&  a,           const  Command_buffer& commands,
+                            size_t command_nom, size_t first_state_nom)
+{}
+
+static void char_class_compl_builder(NDFA&  a,           const  Command_buffer& commands,
+                                     size_t command_nom, size_t first_state_nom)
+{}
+
+static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
+                            size_t command_nom, size_t first_state_nom)
+{}
+
+static void multiconcat_builder(NDFA&  a,           const  Command_buffer& commands,
+                                size_t command_nom, size_t first_state_nom)
+{}
