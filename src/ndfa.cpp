@@ -218,7 +218,30 @@ static void positive_builder(NDFA&  a,           const  Command_buffer& commands
 
 static void optional_builder(NDFA&  a,           const  Command_buffer& commands,
                              size_t command_nom, size_t first_state_nom)
-{}
+{
+    auto& com = commands[command_nom];
+    NDFA a_without_opt;
+    generate_NDFA_for_command(a_without_opt, commands, com.first_arg, first_state_nom + 1);
+
+    NDFA_state_jumps begin_st, begin_st_for_eps, end_st_for_eps;
+
+    size_t final_st       = a_without_opt.final_state + 3;
+    Set_of_states s {first_state_nom + 1, a_without_opt.final_state + 1};
+    begin_st[eps]         = std::make_pair(s, 0);
+    begin_st_for_eps[eps] = std::make_pair(single_elem(a_without_opt.final_state + 2), 0);
+    end_st_for_eps[eps]   = std::make_pair(single_elem(final_st), 0);
+    add_state_jumps(a_without_opt.jumps.back(), eps,
+                    std::make_pair(single_elem(final_st),0));
+
+    a.jumps.push_back(begin_st);
+    a.jumps.insert(a.jumps.end(), a_without_opt.jumps.begin(), a_without_opt.jumps.end());
+    a.jumps.push_back(begin_st_for_eps);
+    a.jumps.push_back(end_st_for_eps);
+    a.jumps.push_back(NDFA_state_jumps());
+
+    a.begin_state = first_state_nom;
+    a.final_state = final_st;
+}
 
 static void char_builder(NDFA&  a,           const  Command_buffer& commands,
                          size_t command_nom, size_t first_state_nom)
