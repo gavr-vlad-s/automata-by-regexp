@@ -35,17 +35,11 @@ static void positive_builder(NDFA&  a,           const  Command_buffer& commands
 static void optional_builder(NDFA&  a,           const  Command_buffer& commands,
                              size_t command_nom, size_t first_state_nom);
 
-static void char_builder(NDFA&  a,           const  Command_buffer& commands,
+static void leaf_builder(NDFA&  a,           const  Command_buffer& commands,
                          size_t command_nom, size_t first_state_nom);
-
-static void char_class_builder(NDFA&  a,           const  Command_buffer& commands,
-                               size_t command_nom, size_t first_state_nom);
 
 static void unknown_builder(NDFA&  a,           const  Command_buffer& commands,
                             size_t command_nom, size_t first_state_nom);
-
-static void char_class_compl_builder(NDFA&  a,           const  Command_buffer& commands,
-                                     size_t command_nom, size_t first_state_nom);
 
 static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
                             size_t command_nom, size_t first_state_nom);
@@ -55,8 +49,8 @@ static void multiconcat_builder(NDFA&  a,           const  Command_buffer& comma
 
 static const NDFA_builder ndfa_builders[] = {
     or_builder,               concat_builder,  kleene_builder,     positive_builder,
-    optional_builder,         char_builder,    char_class_builder, unknown_builder,
-    char_class_compl_builder, multior_builder, multiconcat_builder
+    optional_builder,         leaf_builder,    leaf_builder, unknown_builder,
+    leaf_builder, multior_builder, multiconcat_builder
 };
 
 /* This function builds a nondeterministic finite automaton a for a command whose
@@ -243,20 +237,45 @@ static void optional_builder(NDFA&  a,           const  Command_buffer& commands
     a.final_state = final_st;
 }
 
-static void char_builder(NDFA&  a,           const  Command_buffer& commands,
-                         size_t command_nom, size_t first_state_nom)
-{}
+static Symbol command2symbol(const Command com)
+{
+    Symbol result;
+    switch(com.name){
+        case Command_name::Char:
+            result.kind       = Symbol_kind::Char;
+            result.c          = com.c;
+            break;
+        case Command_name::Char_class:
+            result.kind       = Symbol_kind::Char_class;
+            result.idx_of_set = com.idx_of_set;
+            break;
+        case Command_name::Char_class_complement:
+            result.kind       = Symbol_kind::Class_complement;
+            result.idx_of_set = com.idx_of_set;
+            break;
+        default:
+            ;
+    }
+    return result;
+}
 
-static void char_class_builder(NDFA&  a,           const  Command_buffer& commands,
-                               size_t command_nom, size_t first_state_nom)
-{}
+static void leaf_builder(NDFA&  a,           const  Command_buffer& commands,
+                         size_t command_nom, size_t first_state_nom)
+{
+    auto& com   = commands[command_nom];
+    NDFA_state_jumps begin_st;
+    Symbol symb = command2symbol(com);
+    begin_st[symb] =
+        std::make_pair(single_elem(first_state_nom + 1), com.action_name);
+    a.jumps.push_back(begin_st);
+    a.jumps.push_back(NDFA_state_jumps());
+
+    a.begin_state = first_state_nom;
+    a.final_state = first_state_nom + 1;
+}
 
 static void unknown_builder(NDFA&  a,           const  Command_buffer& commands,
                             size_t command_nom, size_t first_state_nom)
-{}
-
-static void char_class_compl_builder(NDFA&  a,           const  Command_buffer& commands,
-                                     size_t command_nom, size_t first_state_nom)
 {}
 
 static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
