@@ -175,7 +175,46 @@ static void kleene_builder(NDFA&  a,           const  Command_buffer& commands,
 
 static void positive_builder(NDFA&  a,           const  Command_buffer& commands,
                              size_t command_nom, size_t first_state_nom)
-{}
+{
+    auto& com = commands[command_nom];
+    NDFA a1, a2;
+    NDFA_state_jumps state_jumps;
+    generate_NDFA_for_command(a1, commands, com.first_arg, first_state_nom);
+    a2 = a1;
+    size_t number_of_states_in_a1 = a1.jumps.size();
+
+    /* The cycle below increases the number of states for the second copy of the
+     * automaton for the expression under the positive closure sign. */
+    /* The outer cycle is a cycle over the states of the automaton a2. */
+    for(auto& state_jmps : a2.jumps){
+        /* The following loop is the loop on transitions of the current state. */
+        for(auto& jump : state_jmps){
+            Symbol             c  = jump.first;
+            States_with_action sa = jump.second;
+            Set_of_states      new_set_of_states;
+            for(const auto s : sa.first){
+                new_set_of_states.insert(s + number_of_states_in_a1);
+            }
+            state_jmps[c]         = std::make_pair(new_set_of_states, sa.second);
+        }
+    }
+    a2.begin_state += number_of_states_in_a1;
+    a2.final_state += number_of_states_in_a1;
+
+    size_t final_st = a2.final_state + 1;
+
+    Set_of_states s {a2.begin_state, final_st};
+    States_with_action temp_jumps = std::make_pair(s,0);
+
+    add_state_jumps(a1.jumps.back(), eps, temp_jumps);
+    add_state_jumps(a2.jumps.back(), eps, temp_jumps);
+
+    a.jumps.insert(a.jumps.end(), a1.jumps.begin(), a1.jumps.end());
+    a.jumps.insert(a.jumps.end(), a2.jumps.begin(), a2.jumps.end());
+    a.jumps.push_back(NDFA_state_jumps());
+    a.begin_state = first_state_nom;
+    a.final_state = final_st;
+}
 
 static void optional_builder(NDFA&  a,           const  Command_buffer& commands,
                              size_t command_nom, size_t first_state_nom)
