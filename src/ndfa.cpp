@@ -173,7 +173,7 @@ static void positive_builder(NDFA&  a,           const  Command_buffer& commands
     auto& com = commands[command_nom];
     NDFA a1, a2;
     NDFA_state_jumps state_jumps;
-    generate_NDFA_for_command(a1, commands, com.first_arg, first_state_nom);
+    generate_NDFA_for_command(a1, commands, com.args.first, first_state_nom);
     a2 = a1;
     size_t number_of_states_in_a1 = a1.jumps.size();
 
@@ -215,7 +215,7 @@ static void optional_builder(NDFA&  a,           const  Command_buffer& commands
 {
     auto& com = commands[command_nom];
     NDFA a_without_opt;
-    generate_NDFA_for_command(a_without_opt, commands, com.first_arg, first_state_nom + 1);
+    generate_NDFA_for_command(a_without_opt, commands, com.args.first, first_state_nom + 1);
 
     NDFA_state_jumps begin_st, begin_st_for_eps, end_st_for_eps;
 
@@ -284,4 +284,23 @@ static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
 
 static void multiconcat_builder(NDFA&  a,           const  Command_buffer& commands,
                                 size_t command_nom, size_t first_state_nom)
-{}
+{
+    NDFA   accumulator;
+    auto&  com               = commands[command_nom];
+    size_t fst               = com.args.first;
+    size_t snd               = com.args.second;
+    size_t num_of_commands   = snd - fst + 1;
+    auto   jmps              = NDFA_jumps(num_of_commands + 1);
+    accumulator.begin_state  = first_state_nom;
+    accumulator.final_state  = first_state_nom + num_of_commands;
+    size_t current_last_state = first_state_nom + 1;
+    for(size_t i = 0; i < num_of_commands; ++i, ++current_last_state){
+        NDFA_state_jumps j;
+        auto& cmd  = commands[fst + i];
+        auto  symb = command2symbol(cmd);
+        j[symb]    = std::make_pair(single_elem(current_last_state), cmd.action_name);
+        jmps[i]    = j;
+    }
+    accumulator.jumps        = jmps;
+    a                        = accumulator;
+}
