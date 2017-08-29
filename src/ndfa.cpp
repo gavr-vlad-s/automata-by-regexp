@@ -280,7 +280,44 @@ static void unknown_builder(NDFA&  a,           const  Command_buffer& commands,
 
 static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
                             size_t command_nom, size_t first_state_nom)
-{}
+{
+    auto&  com               = commands[command_nom];
+    size_t fst               = com.args.first;
+    size_t snd               = com.args.second;
+    size_t num_of_commands   = snd - fst + 1;
+    auto   jmps              = NDFA_jumps(2 * num_of_commands + 2);
+//     auto&  com           = commands[command_nom];
+//     auto   s             = com.s;
+//     size_t num_of_chars  = s.size();
+//     size_t dnum_of_chars = 2 * num_of_chars;
+//     auto   jumps         = std::vector<NDFA_state_jumps>(dnum_of_chars + 2);
+//     size_t y             = first_state_nom + num_of_chars;
+//     size_t last_state    = first_state_nom + 2 * num_of_chars + 1;
+//     auto   last_sa       = std::make_pair(single_elem(last_state), 0);
+//     auto   sts           = range(first_state_nom + 1, first_state_nom + num_of_chars);
+//     auto&  j0            = jumps[0];
+//     j0[eps_gc]           = std::make_pair(sts, 0);
+//
+//     size_t i = 1;
+//
+//     NDFA_state_jumps last_jump;
+//     last_jump[eps_gc]    = last_sa;
+//
+//     for(const auto c : s){
+//         Generalized_char gc;
+//         gc.kind                 = Char;
+//         gc.c                    = c;
+//         NDFA_state_jumps t;
+//         t[gc]                   = std::make_pair(single_elem(y + i), com.action_name);
+//         jumps[i]                = t;
+//         jumps[num_of_chars + i] = last_jump;
+//         i++;
+//     }
+//
+//     a.jumps = jumps;
+//     a.begin_state = first_state_nom;
+//     a.final_state = last_state;
+}
 
 static void multiconcat_builder(NDFA&  a,           const  Command_buffer& commands,
                                 size_t command_nom, size_t first_state_nom)
