@@ -16,6 +16,7 @@
 #include <utility>
 #include "../include/command.h"
 #include "../include/symbol.h"
+#include "../include/trie_for_set.h"
 
 using Set_of_states         = std::set<size_t>;
 using States_with_action    = std::pair<Set_of_states, size_t>;
@@ -42,5 +43,5 @@ void build_NDFA(NDFA& a, const Command_buffer& commands);
  * \brief         Prints non-deterministic finite automaton.
  * \param [in] a  Non-deterministic finite automaton.
  */
-void print_NDFA(const NDFA& a);
+void print_NDFA(const NDFA& a, const Trie_for_set_of_char32ptr& t);
 #endif

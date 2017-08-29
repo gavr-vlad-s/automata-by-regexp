@@ -278,6 +278,16 @@ static void unknown_builder(NDFA&  a,           const  Command_buffer& commands,
                             size_t command_nom, size_t first_state_nom)
 {}
 
+/* The following function builds the set of integers belonging
+ * to the segment [min_state, max_state]. */
+Set_of_states range(size_t min_state, size_t max_state){
+    Set_of_states result;
+    for(size_t e = min_state; e <= max_state; e++){
+        result.insert(e);
+    }
+    return result;
+}
+
 static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
                             size_t command_nom, size_t first_state_nom)
 {
@@ -285,38 +295,29 @@ static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
     size_t fst               = com.args.first;
     size_t snd               = com.args.second;
     size_t num_of_commands   = snd - fst + 1;
+    size_t y                 = first_state_nom + num_of_commands;
+    size_t last_state        = first_state_nom + 2 * num_of_commands + 1;
+    auto   last_sa           = std::make_pair(single_elem(last_state), 0);
     auto   jmps              = NDFA_jumps(2 * num_of_commands + 2);
-//     auto&  com           = commands[command_nom];
-//     auto   s             = com.s;
-//     size_t num_of_chars  = s.size();
-//     size_t dnum_of_chars = 2 * num_of_chars;
-//     auto   jumps         = std::vector<NDFA_state_jumps>(dnum_of_chars + 2);
-//     size_t y             = first_state_nom + num_of_chars;
-//     size_t last_state    = first_state_nom + 2 * num_of_chars + 1;
-//     auto   last_sa       = std::make_pair(single_elem(last_state), 0);
-//     auto   sts           = range(first_state_nom + 1, first_state_nom + num_of_chars);
-//     auto&  j0            = jumps[0];
-//     j0[eps_gc]           = std::make_pair(sts, 0);
-//
-//     size_t i = 1;
-//
-//     NDFA_state_jumps last_jump;
-//     last_jump[eps_gc]    = last_sa;
-//
-//     for(const auto c : s){
-//         Generalized_char gc;
-//         gc.kind                 = Char;
-//         gc.c                    = c;
-//         NDFA_state_jumps t;
-//         t[gc]                   = std::make_pair(single_elem(y + i), com.action_name);
-//         jumps[i]                = t;
-//         jumps[num_of_chars + i] = last_jump;
-//         i++;
-//     }
-//
-//     a.jumps = jumps;
-//     a.begin_state = first_state_nom;
-//     a.final_state = last_state;
+    auto   sts               = range(first_state_nom + 1, first_state_nom + num_of_commands);
+    auto&  j0                = jmps[0];
+    j0[eps]                  = std::make_pair(sts, 0);
+    NDFA_state_jumps last_jump;
+    last_jump[eps]           = last_sa;
+
+    size_t i                 = 1;
+    for(size_t n = fst; n <= snd; ++n, ++i){
+        auto&            cmd       = commands[n];
+        Symbol           symb      = command2symbol(cmd);
+        NDFA_state_jumps t;
+        t[symb]                    = std::make_pair(single_elem(y + i), cmd.action_name);
+        jmps[i]                    = t;
+        jumps[num_of_commands + i] = last_jump;
+    }
+
+    a.jumps = jmps;
+    a.begin_state = first_state_nom;
+    a.final_state = last_state;
 }
 
 static void multiconcat_builder(NDFA&  a,           const  Command_buffer& commands,
@@ -340,4 +341,28 @@ static void multiconcat_builder(NDFA&  a,           const  Command_buffer& comma
     }
     accumulator.jumps        = jmps;
     a                        = accumulator;
+}
+
+/**
+ * \brief         Prints non-deterministic finite automaton.
+ * \param [in] a  Non-deterministic finite automaton.
+ */
+void print_NDFA(const NDFA& a, const Trie_for_set_of_char32ptr& t)
+{
+    printf("begin_state: %zu\n", a.begin_state);
+    printf("final_state: %zu\n", a.final_state);
+    printf("transitions:\n");
+    size_t state_idx = 0;
+    for(const auto& j : a.jumps){
+        for(const auto& sj : j){
+            printf("delta(");
+            printf("%zu, ", state_idx);
+            print_symbol(sj.first, t);
+            printf(") = ");
+            auto sa = sj.second;
+            print_set(sa.first, print_size_t);
+            printf(" with action having index %zu\n",sa.second);
+        }
+        state_idx++;
+    }
 }
