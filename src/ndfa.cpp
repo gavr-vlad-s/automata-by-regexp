@@ -9,6 +9,7 @@
 
 #include "../include/ndfa.h"
 #include "../include/operations_with_sets.h"
+#include "../include/print_size_t.h"
 
 static const Symbol eps = {.kind = Symbol_kind::Epsilon};
 
@@ -61,7 +62,7 @@ static void generate_NDFA_for_command(NDFA&  a,       const  Command_buffer& com
                                       size_t cmd_nom, size_t first_state_nom)
 {
     auto& com = commands[cmd_nom];
-    (ndfa_builders[static_cast<size_t>(com.kind)])(a, commands, cmd_nom, first_state_nom);
+    (ndfa_builders[static_cast<size_t>(com.name)])(a, commands, cmd_nom, first_state_nom);
 }
 
 void build_NDFA(NDFA& a, const Command_buffer& commands)
@@ -84,7 +85,7 @@ static void add_state_jumps(NDFA_state_jumps& sj,     Symbol c,
     auto it = sj.find(c);
     if(it != sj.end()){
         auto   sa     = it -> second;
-        size_t action = join_actions(sa.second, added_states.second);
+        size_t action = join_actions(sa, added_states);
         sj[c] = std::make_pair(added_states.first + sa.first, action);
     }else{
         sj[c] = added_states;
@@ -312,7 +313,7 @@ static void multior_builder(NDFA&  a,           const  Command_buffer& commands,
         NDFA_state_jumps t;
         t[symb]                    = std::make_pair(single_elem(y + i), cmd.action_name);
         jmps[i]                    = t;
-        jumps[num_of_commands + i] = last_jump;
+        jmps[num_of_commands + i]  = last_jump;
     }
 
     a.jumps = jmps;

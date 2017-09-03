@@ -29,6 +29,7 @@
 #include "../include/expr_lr_tables.h"
 #include "../include/slr_act_expr_parser.h"
 #include "../include/fuse_commands.h"
+#include "../include/ndfa.h"
 // #include "../include/act_expr_parser.h"
 
 // #include "../include/test_expr_scaner.h"
@@ -74,6 +75,12 @@ static const char* after_fusing =
     R"~(
 ***********************************************************
 *                     After fusing:                       *
+***********************************************************)~";
+
+static const char* non_deterministic_aut =
+    R"~(
+***********************************************************
+*            Non-deterministic automaton:                 *
 ***********************************************************)~";
 
 int main(int argc, char** argv)
@@ -126,6 +133,11 @@ int main(int argc, char** argv)
             puts(after_fusing);
             auto fused = fuse_commands(commands);
             print_commands(fused, trie_for_sets);
+
+            NDFA ndaut;
+            puts(non_deterministic_aut);
+            build_NDFA(ndaut, fused);
+            print_NDFA(ndaut, trie_for_sets);
         }
     }
     return 0;
