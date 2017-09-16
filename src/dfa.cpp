@@ -114,37 +114,37 @@
 //     return 0;
 // }
 //
-// /* This function for NFA (nondeterministic finite state machine)
-//  * ndfa builds the corresponding DFA a. */
-// void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa){
-//     std::vector<size_t>      marked_states_of_dfa;
-//     std::vector<size_t>      unmarked_states_of_dfa;
-//     Size_t_trie              sets_of_ndfa_states;
-//     std::map<size_t, size_t> states_nums; /* This is a mapping of the indices of
-//                                              the sets of states of the NFA to the
-//                                              DFA state numbers. The numbering of the
-//                                              latter starts from zero, and they are
-//                                              numbered in the order of appearance in
-//                                              the calculations. */
-//     size_t current_nom_of_DFA_state = 0;
-//
-//     // We calculate the initial state of the DFA a.
-//     auto begin_state       = epsilon_closure(ndfa,  {ndfa.begin_state});
-//     size_t begin_state_idx = write_set_into_trie(sets_of_ndfa_states, begin_state);
-//
-//     states_nums[begin_state_idx] = current_nom_of_DFA_state;
-//     if(contains_final_state(ndfa, begin_state)){
-//         a.final_states.insert(current_nom_of_DFA_state);
-//     }
-//     current_nom_of_DFA_state++;
-//
-//     unmarked_states_of_dfa.push_back(begin_state_idx);
-//
-//     while(!unmarked_states_of_dfa.empty()){
-//         size_t t_idx = unmarked_states_of_dfa.back();
-//         marked_states_of_dfa.push_back(t_idx);
-//         unmarked_states_of_dfa.pop_back();
-//         // Unmarked state processing.
+/* This function for NFA (nondeterministic finite state machine)
+ * ndfa builds the corresponding DFA a. */
+void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa){
+    std::vector<size_t>      marked_states_of_dfa;
+    std::vector<size_t>      unmarked_states_of_dfa;
+    Size_t_trie              sets_of_ndfa_states;
+    std::map<size_t, size_t> states_nums; /* This is a mapping of the indices of
+                                             the sets of states of the NFA to the
+                                             DFA state numbers. The numbering of the
+                                             latter starts from zero, and they are
+                                             numbered in the order of appearance in
+                                             the calculations. */
+    size_t current_nom_of_DFA_state = 0;
+
+    We calculate the initial state of the DFA a.
+    auto begin_state       = epsilon_closure(ndfa,  {ndfa.begin_state});
+    size_t begin_state_idx = write_set_into_trie(sets_of_ndfa_states, begin_state);
+
+    states_nums[begin_state_idx] = current_nom_of_DFA_state;
+    if(contains_final_state(ndfa, begin_state)){
+        a.final_states.insert(current_nom_of_DFA_state);
+    }
+    current_nom_of_DFA_state++;
+
+    unmarked_states_of_dfa.push_back(begin_state_idx);
+
+    while(!unmarked_states_of_dfa.empty()){
+        size_t t_idx = unmarked_states_of_dfa.back();
+        marked_states_of_dfa.push_back(t_idx);
+        unmarked_states_of_dfa.pop_back();
+        // Unmarked state processing.
 //         /* To do this, we first get a list of all the symbols and symbol classes by
 //          * which the transition from the processed state is possible at all. */
 //         std::set<size_t>           t          = sets_of_ndfa_states.get_set(t_idx);
@@ -175,10 +175,10 @@
 //                 a.jumps[std::make_pair(states_nums[t_idx], gc)] = sa;
 //             }
 //         }
-//     }
-//     a.number_of_states = current_nom_of_DFA_state;
-// }
-//
+    }
+    a.number_of_states = current_nom_of_DFA_state;
+}
+
 // /* The following is an implementation of the function that builds a minimized DFA,
 //  * as well as the auxiliary functions and data types necessary for this. */
 //
