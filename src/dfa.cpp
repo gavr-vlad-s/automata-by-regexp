@@ -7,44 +7,46 @@
              gavvs1977@yandex.ru
 */
 
-// #include <string>
-// #include <stack>
-// #include <list>
-// #include <cstdio>
-// #include "../include/ndfa.h"
-// #include "../include/dfa.h"
+#include <string>
+#include <stack>
+#include <list>
+#include <cstdio>
+#include "../include/ndfa.h"
+#include "../include/dfa.h"
+#include "../trie_for_set.h"
 // #include "../include/size_t_trie.h"
 // #include "../include/operations_with_sets.h"
 //
 // using namespace operations_with_sets;
-//
-// const Generalized_char epsilon = {.kind = Epsilon};
-//
-// std::set<size_t> epsilon_closure(const NDFA& a, const std::set<size_t>& s){
-//     std::stack<size_t> stack_of_states;
-//     std::set<size_t>   eps_clos = s;
-//     for(size_t x : s){
-//         stack_of_states.push(x);
-//     }
-//     while(!stack_of_states.empty()){
-//         size_t t = stack_of_states.top();
-//         stack_of_states.pop();
-//         auto& t_jumps = a.jumps[t];
-//         auto iter = t_jumps.find(epsilon);
-//         if (iter != t_jumps.end()) {
-//             auto eps_jumps = (iter->second).first;
-//             for(size_t st : eps_jumps){
-//                 auto it = eps_clos.find(st);
-//                 if(it == eps_clos.end()){
-//                     eps_clos.insert(st);
-//                     stack_of_states.push(st);
-//                 }
-//             }
-//         }
-//     }
-//     return eps_clos;
-// }
-//
+
+static const Symbol eps = {.kind = Symbol_kind::Epsilon};
+
+std::set<size_t> epsilon_closure(const NDFA& a, const std::set<size_t>& s)
+{
+    std::stack<size_t> stack_of_states;
+    std::set<size_t>   eps_clos = s;
+    for(size_t x : s){
+        stack_of_states.push(x);
+    }
+    while(!stack_of_states.empty()){
+        size_t t = stack_of_states.top();
+        stack_of_states.pop();
+        auto& t_jumps = a.jumps[t];
+        auto iter = t_jumps.find(eps);
+        if (iter != t_jumps.end()) {
+            auto eps_jumps = (iter->second).first;
+            for(size_t st : eps_jumps){
+                auto it = eps_clos.find(st);
+                if(it == eps_clos.end()){
+                    eps_clos.insert(st);
+                    stack_of_states.push(st);
+                }
+            }
+        }
+    }
+    return eps_clos;
+}
+
 // /* The following function computes the set of states to which it will pass a set of
 //  * states, denoted by states, by the symbol (or class of characters) gc and returns
 //  * the resulting set as a container std :: set <size_t>. */
@@ -119,7 +121,7 @@
 void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa){
     std::vector<size_t>      marked_states_of_dfa;
     std::vector<size_t>      unmarked_states_of_dfa;
-    Size_t_trie              sets_of_ndfa_states;
+    Trie_for_set_of_sizet    sets_of_ndfa_states;
     std::map<size_t, size_t> states_nums; /* This is a mapping of the indices of
                                              the sets of states of the NFA to the
                                              DFA state numbers. The numbering of the
@@ -130,7 +132,7 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa){
 
     We calculate the initial state of the DFA a.
     auto begin_state       = epsilon_closure(ndfa,  {ndfa.begin_state});
-    size_t begin_state_idx = write_set_into_trie(sets_of_ndfa_states, begin_state);
+    size_t begin_state_idx = sets_of_ndfa_states.insertSet(begin_state); // write_set_into_trie(sets_of_ndfa_states, begin_state);
 
     states_nums[begin_state_idx] = current_nom_of_DFA_state;
     if(contains_final_state(ndfa, begin_state)){
@@ -145,8 +147,8 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa){
         marked_states_of_dfa.push_back(t_idx);
         unmarked_states_of_dfa.pop_back();
         // Unmarked state processing.
-//         /* To do this, we first get a list of all the symbols and symbol classes by
-//          * which the transition from the processed state is possible at all. */
+        /* To do this, we first get a list of all the symbols and symbol classes by
+         * which the transition from the processed state is possible at all. */
 //         std::set<size_t>           t          = sets_of_ndfa_states.get_set(t_idx);
 //         std::set<Generalized_char> jump_chars = jump_chars_set(ndfa, t);
 //         /* And now we calculate the transitions on these symbols from the
