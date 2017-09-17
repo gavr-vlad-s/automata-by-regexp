@@ -134,25 +134,49 @@ static std::set<Symbol> jump_chars_set(const NDFA& a,
 
 /* The contains_final_state function checks whether the set of states s of the NFA
  * contains a finite state of this automaton. */
-static bool contains_final_state(const NDFA& a, const std::set<size_t>& s){
+static bool contains_final_state(const NDFA& a, const std::set<size_t>& s)
+{
     return s.find(a.final_state) != s.end();
+}
+
+static NDFA_state_jumps detalized_jumps(const NDFA_state_jumps& jmps,
+                                        const Trie_for_set_of_char32ptr& tr)
+{
+    NDFA_state_jumps result;
+    for(const auto& j : jmps){
+        auto& symb = j.first;
+        auto& sa   = j.second;
+        if(symb.kind != Symbol_kind::Char_class){
+            result[symb] = sa;
+        }else{
+            auto detalized_symbol = tr->get_set(symb.idx_of_set)
+            for(char32_t c : detalized_symbol){
+                result[char32_to_symbol(c)] = sa;
+            }
+        }
+    }
+    return result;
 }
 
 /* The following function calculates the action to be taken when passing from the DFA
  * state represented by the set of s states of the NFA a, by the symbol or class of
  *  characters gc.  */
-static size_t action_for_dfa_jump(const NDFA& a, const std::set<size_t>& s, Symbol gc)
+static size_t action_for_dfa_jump(const NDFA& a,
+                                  const std::set<size_t>& s,
+                                  Symbol gc,
+                                  const Trie_for_set_of_char32ptr& tr)
 {
-    for(size_t x : s){
-        auto&  x_jmp  = a.jumps[x];
-//         auto   it     = x_jmp.find(gc);
-//         if(it != x_jmp.end()){
-//             auto   target = it->second;
-//             size_t act    = target.second;
-//             if(act){
-//                 return act;
-//             }
-//         }
+    for(size_t st : s){
+        auto&  st_jmp           = a.jumps[st];
+        auto   st_jmp_detalized = detalized_jumps(st_jmp, tr);
+        auto   it     = st_jmp_detalized.find(gc);
+        if(it != st_jmp_detalized.end()){
+            auto   target = it->second;
+            size_t act    = target.second;
+            if(act){
+                return act;
+            }
+        }
     }
     return 0;
 }
@@ -202,7 +226,7 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32p
                 /* Here we find ourselves, if the epsilon-closure is not empty, that
                  * is, there is a transition from t by gc. */
                 DFA_state_with_action sa;
-                sa.action_idx = action_for_dfa_jump(ndfa, t, gc);
+                sa.action_idx = action_for_dfa_jump(ndfa, t, gc, tr);
                 auto it       = states_nums.find(u_idx);
                 if(it == states_nums.end()){
                     unmarked_states_of_dfa.push_back(u_idx);
