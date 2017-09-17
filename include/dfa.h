@@ -38,7 +38,7 @@ struct DFA{
 
 /* This function builds the NFA (nondeterministic finite automaton) ndfa
  * by the DFA (deterministic finite automaton) a. */
-void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa);
+void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32ptr& t);
 
 using Min_DFA_state_jumps = std::map<Symbol, DFA_state_with_action>;
 using Min_DFA_jumps       = std::vector<Min_DFA_state_jumps>;
