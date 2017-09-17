@@ -11,7 +11,7 @@
 
 #include "../include/ndfa.h"
 #include "../include/symbol.h"
-#include "../trie_for_set.h"
+#include "../include/trie_for_set.h"
 #include <vector>
 #include <map>
 #include <set>

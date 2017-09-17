@@ -13,7 +13,7 @@
 #include <cstdio>
 #include "../include/ndfa.h"
 #include "../include/dfa.h"
-#include "../trie_for_set.h"
+#include "../include/trie_for_set.h"
 // #include "../include/size_t_trie.h"
 // #include "../include/operations_with_sets.h"
 //
@@ -93,7 +93,7 @@ static Symbol char32_to_symbol(char32_t ch)
     return s;
 }
 
-static std::set<Symbol> detalize_symbols(const std::set<size_t>& s,
+static std::set<Symbol> detalize_symbols(const std::set<Symbol>& s,
                                          const Trie_for_set_of_char32ptr& t)
 {
     std::set<Symbol> result;
@@ -101,7 +101,7 @@ static std::set<Symbol> detalize_symbols(const std::set<size_t>& s,
         if(symb.kind != Symbol_kind::Char_class){
             result.insert(symb);
         }else{
-            auto detalized_symbol = t->get_set(symb.idx_of_set)
+            auto detalized_symbol = t->get_set(symb.idx_of_set);
             for(char32_t c : detalized_symbol){
                 result.insert(char32_to_symbol(c));
             }
@@ -149,7 +149,7 @@ static NDFA_state_jumps detalized_jumps(const NDFA_state_jumps& jmps,
         if(symb.kind != Symbol_kind::Char_class){
             result[symb] = sa;
         }else{
-            auto detalized_symbol = tr->get_set(symb.idx_of_set)
+            auto detalized_symbol = tr->get_set(symb.idx_of_set);
             for(char32_t c : detalized_symbol){
                 result[char32_to_symbol(c)] = sa;
             }
@@ -196,7 +196,7 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32p
                                              the calculations. */
     size_t current_nom_of_DFA_state = 0;
 
-    We calculate the initial state of the DFA a.
+    // We calculate the initial state of the DFA a.
     auto begin_state       = epsilon_closure(ndfa,  {ndfa.begin_state});
     size_t begin_state_idx = sets_of_ndfa_states.insertSet(begin_state); // write_set_into_trie(sets_of_ndfa_states, begin_state);
 
