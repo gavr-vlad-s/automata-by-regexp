@@ -58,7 +58,7 @@ struct Min_DFA{
 
 void minimize_DFA(Min_DFA& minimized, const DFA& minimizing);
 
-void print_DFA(const DFA& a);
+void print_DFA(const DFA& a, const Trie_for_set_of_char32ptr& t);
 
 void print_minimal_DFA(const Min_DFA& a);
 #endif

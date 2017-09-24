@@ -30,6 +30,7 @@
 #include "../include/slr_act_expr_parser.h"
 #include "../include/fuse_commands.h"
 #include "../include/ndfa.h"
+#include "../include/dfa.h"
 // #include "../include/act_expr_parser.h"
 
 // #include "../include/test_expr_scaner.h"
@@ -81,6 +82,12 @@ static const char* non_deterministic_aut =
     R"~(
 ***********************************************************
 *            Non-deterministic automaton:                 *
+***********************************************************)~";
+
+static const char* deterministic_aut =
+    R"~(
+***********************************************************
+*                Deterministic automaton:                 *
 ***********************************************************)~";
 
 int main(int argc, char** argv)
@@ -138,6 +145,11 @@ int main(int argc, char** argv)
             puts(non_deterministic_aut);
             build_NDFA(ndaut, fused);
             print_NDFA(ndaut, trie_for_sets);
+
+            DFA daut;
+            puts(deterministic_aut);
+            convert_NDFA_to_DFA(daut, ndaut, trie_for_sets);
+            print_DFA(daut, trie_for_sets);
         }
     }
     return 0;

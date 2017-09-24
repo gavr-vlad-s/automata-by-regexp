@@ -14,10 +14,13 @@
 #include "../include/ndfa.h"
 #include "../include/dfa.h"
 #include "../include/trie_for_set.h"
+#include "../include/operations_with_sets.h"
+#include "../include/print_size_t.h"
+
 // #include "../include/size_t_trie.h"
 // #include "../include/operations_with_sets.h"
 //
-// using namespace operations_with_sets;
+using namespace operations_with_sets;
 
 static const Symbol eps = {.kind = Symbol_kind::Epsilon};
 
@@ -245,6 +248,26 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32p
         }
     }
     a.number_of_states = current_nom_of_DFA_state;
+}
+
+void print_DFA(const DFA& a, const Trie_for_set_of_char32ptr& t)
+{
+    printf("Number of states of DFA: %zu.\n", a.number_of_states);
+
+    printf("Begin state of DFA: %zu.\n", a.begin_state);
+
+    printf("Final states of DFA: ");
+    print_set(a.final_states, print_size_t);
+    putchar('\n');
+
+    for(const auto& j : a.jumps){
+        auto& st_and_symb = j.first;
+        auto& sa          = j.second;
+        printf("delta(%zu, ", st_and_symb.first);
+        print_symbol(st_and_symb.second, t);
+        printf(") = %zu with action having index %zu\n", sa.st, sa.action_idx);
+
+    }
 }
 
 // /* The following is an implementation of the function that builds a minimized DFA,
