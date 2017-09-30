@@ -41,24 +41,5 @@ struct DFA{
  * by the DFA (deterministic finite automaton) a. */
 void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32ptr& t);
 
-using Min_DFA_state_jumps = std::map<Symbol, DFA_state_with_action>;
-using Min_DFA_jumps       = std::vector<Min_DFA_state_jumps>;
-/* In Min_DFA_jumps, an element having the index j is transitions
- * for the state having number j. */
-
-struct Min_DFA{
-    Min_DFA_jumps    jumps;
-    size_t           begin_state = 0;
-    std::set<size_t> final_states;
-
-    Min_DFA()                    = default;
-    ~Min_DFA()                   = default;
-    Min_DFA(const Min_DFA& orig) = default;
-};
-
-void minimize_DFA(Min_DFA& minimized, const DFA& minimizing);
-
 void print_DFA(const DFA& a, const Trie_for_set_of_char32ptr& t);
-
-void print_minimal_DFA(const Min_DFA& a);
 #endif
