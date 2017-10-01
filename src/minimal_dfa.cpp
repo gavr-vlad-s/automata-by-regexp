@@ -8,8 +8,11 @@
 */
 
 #include <algorithm>
+#include <cstdio>
 #include "../include/minimal_dfa.h"
 #include "../include/operations_with_sets.h"
+#include "../include/trie_for_set.h"
+#include "../include/print_size_t.h"
 
 using namespace operations_with_sets;
 
@@ -360,5 +363,24 @@ void minimize_DFA(Min_DFA& minimal, const DFA& source)
     minimal              = reordered_DFA(minimal);
 }
 
-void print_minimal_DFA(const Min_DFA& a)
-{}
+void print_minimal_DFA(const Min_DFA& a, const Trie_for_set_of_char32ptr& tr)
+{
+    printf("Number of states of minimized DFA: %zu.\n", a.jumps.size());
+    printf("Begin state of minimized DFA:      %zu.\n", a.begin_state);
+
+    printf("Final states of minimized DFA: ");
+    print_set(a.final_states, print_size_t);
+    putchar('\n');
+
+    size_t current_state = 0;
+    for(const auto& state_jumps : a.jumps){
+        for(const auto& j : state_jumps){
+            Symbol sym = j.first;
+            auto   sa  = j.second;
+            printf("delta(%zu, ", current_state);
+            print_symbol(sym, tr);
+            printf(") = %zu with action having index %zu\n", sa.st, sa.action_idx);
+        }
+        current_state++;
+    }
+}
