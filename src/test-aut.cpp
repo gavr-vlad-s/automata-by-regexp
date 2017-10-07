@@ -31,6 +31,7 @@
 #include "../include/fuse_commands.h"
 #include "../include/ndfa.h"
 #include "../include/dfa.h"
+#include "../include/minimal_dfa.h"
 // #include "../include/act_expr_parser.h"
 
 // #include "../include/test_expr_scaner.h"
@@ -88,6 +89,12 @@ static const char* deterministic_aut =
     R"~(
 ***********************************************************
 *                Deterministic automaton:                 *
+***********************************************************)~";
+
+static const char* minimized_deterministic_aut =
+    R"~(
+***********************************************************
+*          Minimized deterministic automaton:             *
 ***********************************************************)~";
 
 int main(int argc, char** argv)
@@ -150,6 +157,11 @@ int main(int argc, char** argv)
             puts(deterministic_aut);
             convert_NDFA_to_DFA(daut, ndaut, trie_for_sets);
             print_DFA(daut, trie_for_sets);
+
+            Min_DFA min_daut;
+            puts(minimized_deterministic_aut);
+            minimize_DFA(min_daut, daut);
+            print_minimal_DFA(min_daut, trie_for_sets);
         }
     }
     return 0;

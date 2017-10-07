@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <cstdio>
+#include <list>
 #include "../include/minimal_dfa.h"
 #include "../include/operations_with_sets.h"
 #include "../include/trie_for_set.h"
