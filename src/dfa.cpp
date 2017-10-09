@@ -186,21 +186,44 @@ static Symbol char32_to_symbol(char32_t ch)
     return s;
 }
 
+static std::set<Symbol> expand_symbol(const Symbol                     symb,
+                                      const Trie_for_set_of_char32ptr& tr)
+{
+    std::set<Symbol> result;
+    if(symb.kind != Symbol_kind::Char_class){
+        result.insert(symb);
+    }else{
+        auto symb_contents = tr->get_set(symb.idx_of_set);
+        for(const char32_t c : symb_contents){
+            result.insert(char32_to_symbol(c));
+        }
+    }
+    return result;
+}
+
 static NDFA_state_jumps expand_state_jumps(const NDFA_state_jumps&          jumps,
                                            const Trie_for_set_of_char32ptr& tr)
 {
     NDFA_state_jumps result;
     for(const auto& jump : jumps){
-        auto& symb = jump.first;
-        auto& sa   = jump.second;
-        if(symb.kind != Symbol_kind::Char_class){
-            result[symb] = sa;
-        }else{
-            auto detalized_symbol = tr->get_set(symb.idx_of_set);
-            for(char32_t c : detalized_symbol){
-                result[char32_to_symbol(c)] = sa;
+        auto& symb          = jump.first;
+        auto& sa            = jump.second;
+        auto  expanded_symb = expand_symbol(symb, tr);
+        for(const auto& s : expanded_symb){
+            auto  it            = result.find(s);
+            if(it != result.end()){
+            }else{
+                result[s] = sa;
             }
         }
+//         if(symb.kind != Symbol_kind::Char_class){
+//             result[symb] = sa;
+//         }else{
+//             auto detalized_symbol = tr->get_set(symb.idx_of_set);
+//             for(char32_t c : detalized_symbol){
+//                 result[char32_to_symbol(c)] = sa;
+//             }
+//         }
     }
     return result;
 }
