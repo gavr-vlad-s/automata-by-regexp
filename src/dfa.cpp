@@ -154,7 +154,10 @@ static std::set<Symbol> jump_chars_set(const NDFA_jumps& js, const std::set<size
     for(size_t state : s){
         auto& st_js = js[state];
         for(const auto& st_j : st_js){
-            result.insert(st_j.first);
+            auto symb = st_j.first;
+            if(symb.kind != Symbol_kind::Epsilon){
+                result.insert(symb);
+            }
         }
     }
     return result;
@@ -175,7 +178,7 @@ static std::set<size_t> epsilon_closure(const NDFA_jumps& jumps,
         stack_of_states.pop();
         auto& t_jumps = jumps[t];
         auto  iter    = t_jumps.find(eps);
-        if (iter != t_jumps.end()) {
+        if (iter != t_jumps.end()){
             auto eps_jumps = (iter->second).first;
             for(size_t st : eps_jumps){
                 auto it = eps_clos.find(st);
