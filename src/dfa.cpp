@@ -22,55 +22,6 @@
 //
 using namespace operations_with_sets;
 
-static const Symbol eps = {.kind = Symbol_kind::Epsilon};
-
-static std::set<size_t> epsilon_closure(const NDFA& a, const std::set<size_t>& s)
-{
-    std::stack<size_t> stack_of_states;
-    std::set<size_t>   eps_clos = s;
-    for(size_t x : s){
-        stack_of_states.push(x);
-    }
-    while(!stack_of_states.empty()){
-        size_t t = stack_of_states.top();
-        stack_of_states.pop();
-        auto& t_jumps = a.jumps[t];
-        auto iter = t_jumps.find(eps);
-        if (iter != t_jumps.end()) {
-            auto eps_jumps = (iter->second).first;
-            for(size_t st : eps_jumps){
-                auto it = eps_clos.find(st);
-                if(it == eps_clos.end()){
-                    eps_clos.insert(st);
-                    stack_of_states.push(st);
-                }
-            }
-        }
-    }
-    return eps_clos;
-}
-
-// /* The following function computes the set of states to which it will pass a set of
-//  * states, denoted by states, by the symbol (or class of characters) gc and returns
-//  * the resulting set as a container std :: set <size_t>. */
-// static std::set<size_t> move(const NDFA& a,
-//                              const std::set<size_t>& states,
-//                              const Symbol gc)
-// {
-//     std::set<size_t> move_set;
-//     for(size_t st : states){
-//         auto& st_jumps = a.jumps[st];
-//         auto it = st_jumps.find(gc);
-//         if(it != st_jumps.end()){
-//             /* The states in which a transition is made from the state st
-//              * by the symbol gc */
-//             auto& s = (it->second).first;
-//             move_set.insert(s.begin(), s.end());
-//         }
-//     }
-//     return move_set;
-// }
-//
 // static std::set<Symbol> non_detalized_symbols(const NDFA& a, const std::set<size_t>& s)
 // {
 //     std::set<Symbol> result;
@@ -104,17 +55,6 @@ static std::set<size_t> epsilon_closure(const NDFA& a, const std::set<size_t>& s
 //     }
 //     return result;
 // }
-//
-// /* The next function over the set of s states of the NFA a constructs a set of symbols
-//  * from which at least one of the states belonging to the set s has a transition.
-//  * Epsilon transitions are not taken into account. */
-// static std::set<Symbol> jump_chars_set(const NDFA& a,
-//                                        const std::set<size_t>& s,
-//                                        const Trie_for_set_of_char32ptr& t)
-// {
-//     std::set<Symbol> jump_chars = detalize_symbols(non_detalized_symbols(a, s), t);
-//     return jump_chars;
-// }
 
 // // // // // // /* This function writes a set consisting of elements of type size_t into the prefix
 // // // // // //  * tree of such sets, and returns the resulting index. */
@@ -127,13 +67,6 @@ static std::set<size_t> epsilon_closure(const NDFA& a, const std::set<size_t>& s
 // // // // // //     return set_idx;
 // // // // // // }
 
-// /* The contains_final_state function checks whether the set of states s of the NFA
-//  * contains a finite state of this automaton. */
-// static bool contains_final_state(const NDFA& a, const std::set<size_t>& s)
-// {
-//     return s.find(a.final_state) != s.end();
-// }
-//
 // static NDFA_state_jumps detalized_jumps(const NDFA_state_jumps& jmps,
 //                                         const Trie_for_set_of_char32ptr& tr)
 // {
@@ -152,31 +85,6 @@ static std::set<size_t> epsilon_closure(const NDFA& a, const std::set<size_t>& s
 //     }
 //     return result;
 // }
-//
-// /* The following function calculates the action to be taken when passing from the DFA
-//  * state represented by the set of s states of the NFA a, by the symbol or class of
-//  *  characters gc.  */
-// static size_t action_for_dfa_jump(const NDFA& a,
-//                                   const std::set<size_t>& s,
-//                                   Symbol gc,
-//                                   const Trie_for_set_of_char32ptr& tr)
-// {
-//     for(size_t st : s){
-//         auto&  st_jmp           = a.jumps[st];
-//         auto   st_jmp_detalized = detalized_jumps(st_jmp, tr);
-//         auto   it     = st_jmp_detalized.find(gc);
-//         if(it != st_jmp_detalized.end()){
-//             auto   target = it->second;
-//             size_t act    = target.second;
-//             if(act){
-//                 return act;
-//             }
-//         }
-//     }
-//     return 0;
-// }
-
-
 
 static Symbol char32_to_symbol(char32_t ch)
 {
@@ -212,32 +120,122 @@ static NDFA_state_jumps expand_state_jumps(const NDFA_state_jumps&          jump
         for(const auto& s : expanded_symb){
             auto  it            = result.find(s);
             if(it != result.end()){
+                auto   old_sa     = it->second;
+                auto&  old_states = old_sa.first;
+                size_t old_act    = old_sa.second;
+                size_t new_act    = old_act ? old_act : sa.second;
+                result[s]         = std::make_pair(sa.first + old_states, new_act);
             }else{
-                result[s] = sa;
+                result[s]         = sa;
             }
         }
-//         if(symb.kind != Symbol_kind::Char_class){
-//             result[symb] = sa;
-//         }else{
-//             auto detalized_symbol = tr->get_set(symb.idx_of_set);
-//             for(char32_t c : detalized_symbol){
-//                 result[char32_to_symbol(c)] = sa;
-//             }
-//         }
     }
     return result;
 }
 
 static NDFA_jumps expand_jumps(const NDFA& a, const Trie_for_set_of_char32ptr& tr)
 {
-    auto&      old_jmps   = a.jumps;
-    NDFA_jumps result     = NDFA_jumps(old_jmps.size());
-    size_t     curr_state = 0;
+    auto&      old_jmps      = a.jumps;
+    NDFA_jumps result        = NDFA_jumps(old_jmps.size());
+    size_t     current_state = 0;
     for(const auto& state_jumps : old_jmps){
         result[current_state] = expand_state_jumps(state_jumps, tr);
         current_state++;
     }
     return result;
+}
+
+/* The next function using the set of s states of the NFA, constructs a set of symbols
+ * from which at least one of the states belonging to the set s has a transition.
+ * Epsilon transitions are not taken into account. */
+static std::set<Symbol> jump_chars_set(const NDFA_jumps& js, const std::set<size_t>& s)
+{
+    std::set<Symbol> result;
+    for(size_t state : s){
+        auto& st_js = js[state];
+        for(const auto& st_j : st_js){
+            result.insert(st_j.first);
+        }
+    }
+    return result;
+}
+
+static const Symbol eps = {.kind = Symbol_kind::Epsilon};
+
+static std::set<size_t> epsilon_closure(const NDFA_jumps& jumps,
+                                        const std::set<size_t>& s)
+{
+    std::stack<size_t> stack_of_states;
+    std::set<size_t>   eps_clos = s;
+    for(size_t x : s){
+        stack_of_states.push(x);
+    }
+    while(!stack_of_states.empty()){
+        size_t t = stack_of_states.top();
+        stack_of_states.pop();
+        auto& t_jumps = jumps[t];
+        auto  iter    = t_jumps.find(eps);
+        if (iter != t_jumps.end()) {
+            auto eps_jumps = (iter->second).first;
+            for(size_t st : eps_jumps){
+                auto it = eps_clos.find(st);
+                if(it == eps_clos.end()){
+                    eps_clos.insert(st);
+                    stack_of_states.push(st);
+                }
+            }
+        }
+    }
+    return eps_clos;
+}
+
+/* The following function computes the set of states to which it will pass a set of
+ * states, denoted by states, by the symbol (or class of characters) gc and returns
+ * the resulting set as a container std :: set <size_t>. */
+static std::set<size_t> move(const NDFA_jumps&       jumps,
+                             const std::set<size_t>& states,
+                             const Symbol            gc)
+{
+    std::set<size_t> move_set;
+    for(size_t st : states){
+        auto& st_jumps = jumps[st];
+        auto  it       = st_jumps.find(gc);
+        if(it != st_jumps.end()){
+            /* The states in which a transition is made from the state st
+             * by the symbol gc */
+            auto& s = (it->second).first;
+            move_set.insert(s.begin(), s.end());
+        }
+    }
+    return move_set;
+}
+
+/* The contains_final_state function checks whether the set of states s of the NFA
+ * contains a finite state of this automaton. */
+static bool contains_final_state(const NDFA& a, const std::set<size_t>& s)
+{
+    return s.find(a.final_state) != s.end();
+}
+
+/* The following function calculates the action to be taken when passing from the DFA
+ * state represented by the set of s states of the NFA, by the symbol or class of
+ *  characters gc.  */
+static size_t action_for_dfa_jump(const NDFA_jumps&       jumps,
+                                  const std::set<size_t>& s,
+                                  Symbol                  gc)
+{
+    for(size_t st : s){
+        auto&  st_jmp = jumps[st];
+        auto   it     = st_jmp.find(gc);
+        if(it != st_jmp.end()){
+            auto   target = it->second;
+            size_t act    = target.second;
+            if(act){
+                return act;
+            }
+        }
+    }
+    return 0;
 }
 
 /* This function for NFA (nondeterministic finite state machine)
@@ -256,8 +254,10 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32p
                                              the calculations. */
     size_t current_nom_of_DFA_state = 0;
 
+    auto expanded_jumps = expand_jumps(ndfa, tr);
+
     // We calculate the initial state of the DFA a.
-    auto begin_state       = epsilon_closure(ndfa,  {ndfa.begin_state});
+    auto begin_state       = epsilon_closure(expanded_jumps,  {ndfa.begin_state});
     size_t begin_state_idx = sets_of_ndfa_states.insertSet(begin_state); // write_set_into_trie(sets_of_ndfa_states, begin_state);
 
     states_nums[begin_state_idx] = current_nom_of_DFA_state;
@@ -268,8 +268,6 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32p
 
     unmarked_states_of_dfa.push_back(begin_state_idx);
 
-    auto expanded_jumps = expand_jumps(ndfa, tr);
-
     while(!unmarked_states_of_dfa.empty()){
         size_t t_idx = unmarked_states_of_dfa.back();
         marked_states_of_dfa.push_back(t_idx);
@@ -278,33 +276,33 @@ void convert_NDFA_to_DFA(DFA& a, const NDFA& ndfa, const Trie_for_set_of_char32p
         /* To do this, we first get a list of all the symbols and symbol classes by
          * which the transition from the processed state is possible at all. */
         auto t          = sets_of_ndfa_states.get_set(t_idx);
-        auto jump_chars = jump_chars_set(ndfa, t, tr);
-//         /* And now we calculate the transitions on these symbols from the
-//          * current state of the DFA. */
-//         for(Symbol gc : jump_chars){
-//             auto   u     = epsilon_closure(ndfa, move(ndfa, t, gc));
-//             size_t u_idx = sets_of_ndfa_states.insertSet(u); // write_set_into_trie(sets_of_ndfa_states, u);
-//             if(!u.empty()){
-//                 /* Here we find ourselves, if the epsilon-closure is not empty, that
-//                  * is, there is a transition from t by gc. */
-//                 DFA_state_with_action sa;
-//                 sa.action_idx = action_for_dfa_jump(ndfa, t, gc, tr);
-//                 auto it       = states_nums.find(u_idx);
-//                 if(it == states_nums.end()){
-//                     unmarked_states_of_dfa.push_back(u_idx);
-//                     states_nums[u_idx] = current_nom_of_DFA_state;
-//                     if(contains_final_state(ndfa, u)){
-//                         a.final_states.insert(current_nom_of_DFA_state);
-//                     }
-//                     sa.st = current_nom_of_DFA_state;
-//                     current_nom_of_DFA_state++;
-//                 }else{
-//                     sa.st = it->second;
-//                 }
-//                 // Now add a transition entry.
-//                 a.jumps[std::make_pair(states_nums[t_idx], gc)] = sa;
-//             }
-//         }
+        auto jump_chars = jump_chars_set(expanded_jumps, t);
+        /* And now we calculate the transitions on these symbols from the
+         * current state of the DFA. */
+        for(Symbol gc : jump_chars){
+            auto   u     = epsilon_closure(expanded_jumps, move(expanded_jumps, t, gc));
+            size_t u_idx = sets_of_ndfa_states.insertSet(u); // write_set_into_trie(sets_of_ndfa_states, u);
+            if(!u.empty()){
+                /* Here we find ourselves, if the epsilon-closure is not empty, that
+                 * is, there is a transition from t by gc. */
+                DFA_state_with_action sa;
+                sa.action_idx = action_for_dfa_jump(expanded_jumps, t, gc);
+                auto it       = states_nums.find(u_idx);
+                if(it == states_nums.end()){
+                    unmarked_states_of_dfa.push_back(u_idx);
+                    states_nums[u_idx] = current_nom_of_DFA_state;
+                    if(contains_final_state(ndfa, u)){
+                        finals.insert(current_nom_of_DFA_state);
+                    }
+                    sa.st = current_nom_of_DFA_state;
+                    current_nom_of_DFA_state++;
+                }else{
+                    sa.st = it->second;
+                }
+                // Now add a transition entry.
+                a.jumps[std::make_pair(states_nums[t_idx], gc)] = sa;
+            }
+        }
     }
     a.final_states     = finals;
     a.number_of_states = current_nom_of_DFA_state;
