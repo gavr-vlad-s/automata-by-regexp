@@ -67,6 +67,15 @@ std::u32string init_testing(const char* name)
 static const char32_t* write_act_name = U"write";
 static const char32_t* write_act_body = U"buffer += ch;";
 
+static const char32_t* add_dec_digit_act_name = U"add_dec_digit";
+static const char32_t* add_dec_digit_act_body = U"token.value = token.value * 10 + digit2int(ch);";
+
+static const char32_t* add_hex_digit_act_name = U"add_hex_digit";
+static const char32_t* add_hex_digit_act_body = U"token.value = token.value << 4 + digit2int(ch);";
+
+static const char32_t* add_bin_digit_act_name = U"add_bin_digit";
+static const char32_t* add_bin_digit_act_body = U"token.value = token.value << 1 + digit2int(ch);";
+
 static const char* before_fusing =
     R"~(
 ***********************************************************
@@ -97,6 +106,28 @@ static const char* minimized_deterministic_aut =
 *          Minimized deterministic automaton:             *
 ***********************************************************)~";
 
+void add_action(Errors_and_tries&       etr,
+                std::shared_ptr<Scope>& scope,
+                const std::u32string&   name,
+                const std::u32string&   body)
+{
+    Id_attributes iattr;
+    iattr.kind             = Action_name;
+    size_t idx             = etr.ids_trie -> insert(name);
+    size_t body_idx        = etr.strs_trie-> insert(body);
+    iattr.act_string       = body_idx;
+    scope->idsc[idx]       = iattr;
+
+    Str_attributes sattr;
+    sattr.kind             = Action_definition;
+    sattr.code             = 0;
+    scope->strsc[body_idx] = sattr;
+
+    auto name_in_utf8 = u32string_to_utf8(name);
+    printf("Index of action with name %s is %zu.\n",
+           name_in_utf8.c_str(), idx);
+}
+
 int main(int argc, char** argv)
 {
     if(1 == argc){
@@ -115,17 +146,22 @@ int main(int argc, char** argv)
             auto esc           = std::make_shared<Expr_scaner>(loc, etr, trie_for_sets);
             auto scope         = std::make_shared<Scope>();
 
-            Id_attributes iattr;
-            iattr.kind             = Action_name;
-            size_t idx             = etr.ids_trie -> insert(write_act_name);
-            size_t body_idx        = etr.strs_trie-> insert(write_act_body);
-            iattr.act_string       = body_idx;
-            scope->idsc[idx]       = iattr;
+            add_action(etr, scope, write_act_name, write_act_body);
+            add_action(etr, scope, add_dec_digit_act_name, add_dec_digit_act_body);
+            add_action(etr, scope, add_hex_digit_act_name, add_hex_digit_act_body);
+            add_action(etr, scope, add_bin_digit_act_name, add_bin_digit_act_body);
 
-            Str_attributes sattr;
-            sattr.kind             = Action_definition;
-            sattr.code             = 0;
-            scope->strsc[body_idx] = sattr;
+//             Id_attributes iattr;
+//             iattr.kind             = Action_name;
+//             size_t idx             = etr.ids_trie -> insert(write_act_name);
+//             size_t body_idx        = etr.strs_trie-> insert(write_act_body);
+//             iattr.act_string       = body_idx;
+//             scope->idsc[idx]       = iattr;
+//
+//             Str_attributes sattr;
+//             sattr.kind             = Action_definition;
+//             sattr.code             = 0;
+//             scope->strsc[body_idx] = sattr;
 
             auto slr_arp           =
                 std::make_unique<SLR_act_expr_parser>(esc, etr, scope, expr_slr_tables);
