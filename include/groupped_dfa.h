@@ -14,7 +14,7 @@
 #include <map>
 #include <set>
 #include <utility>
-#include "../include/dfa.h"
+#include "../include/minimal_dfa.h"
 #include "../include/categories.h"
 
 using G_DFA_state_jumps = std::map<Category, DFA_state_with_action>;
