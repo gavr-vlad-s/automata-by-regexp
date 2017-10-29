@@ -11,16 +11,16 @@
 #define GROUPED_DFA_BY_REGEXP_H
 #include "../include/command.h"
 #include "../include/groupped_dfa.h"
+#include "../include/trie_for_set.h"
 /**
  * \param [out] gdfa         resulting deterministic finite automaton
  *                           with groupped transitions
  *
  * \param [in]  buf          buffer containing commands
- * \param [in]  optimize_com if this argument is true, then adjacent commands Or,
- *                           the arguments of which are either Multior, or Char_def,
- *                           are glued together in single command.
- *                           Otherwise, gluing is not performed
+ *
+ * \param [in]  t            trie stores sets having type std::set< char32_t >
  */
-void grouped_DFA_by_regexp(G_DFA& gdfa, const Command_buffer& buf,
-                           bool optimize_com);
+void grouped_DFA_by_regexp(G_DFA&                           gdfa,
+                           const Command_buffer&            buf,
+                           const Trie_for_set_of_char32ptr& t);
 #endif

@@ -16,6 +16,7 @@
 
 #define DEBUG_MODE
 #ifdef DEBUG_MODE
+#  include <cstdio>
 #  include "../include/char_conv.h"    // For debug printing.
 #  include "../include/print_char32.h" // For debug printing.
 #endif

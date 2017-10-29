@@ -42,7 +42,7 @@ static Min_DFA_jumps  convert_jumps(const DFA& a)
     Min_DFA_jumps conv_j = std::vector<Min_DFA_state_jumps>(a.number_of_states);
     for(const auto x : a.jumps){
         auto state_and_symb = x.first;
-        auto target       = x.second;
+        auto target         = x.second;
         conv_j[state_and_symb.first][state_and_symb.second] = target;
     }
     return conv_j;
