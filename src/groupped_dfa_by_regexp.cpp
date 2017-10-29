@@ -1,13 +1,13 @@
 /*
-    File:    grouped_DFA_by_uwrapped_regexp.cpp
-    Created: 2 February 2017 at 10:30 Moscow time
+    File:    grouped_DFA_by_regexp.cpp
+    Created: 29 October 2017 at 09:27 Moscow time
     Author:  Гаврилов Владимир Сергеевич
     E-mails: vladimir.s.gavrilov@gmail.com
              gavrilov.vladimir.s@mail.ru
              gavvs1977@yandex.ru
 */
 
-#include "../include/grouped_DFA_by_uwrapped_regexp.h"
+#include "../include/grouped_DFA_by_regexp.h"
 #include "../include/ndfa.h"
 #include "../include/dfa.h"
 #include "../include/fuse_unwrapped_commands.h"

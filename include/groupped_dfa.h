@@ -22,11 +22,13 @@ using G_DFA_jumps       = std::vector<G_DFA_state_jumps>;
 
 struct G_DFA{
     G_DFA_jumps      jumps;
-    size_t           begin_state = 0;
+    size_t           begin_state   = 0;
     std::set<size_t> final_states;
 
-    G_DFA()                  = default;
-    ~G_DFA()                 = default;
-    G_DFA(const G_DFA& orig) = default;
+    G_DFA()                        = default;
+    ~G_DFA()                       = default;
+    G_DFA(const G_DFA& orig)       = default;
 };
+
+void print_grouped_DFA(const G_DFA& gdfa);
 #endif
