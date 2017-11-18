@@ -19,7 +19,7 @@ static const char* num_of_states_format_str =
     "Number of states of minimized DFA with grouped transitions: %zu.\n";
 
 static const char* begin_state_format_str   =
-    "Begin state of minimized DFA:                               %zu.\n"
+    "Begin state of minimized DFA:                               %zu.\n";
 
 static const char* final_states_format_str  =
     "Final states of minimized DFA: ";
@@ -27,15 +27,15 @@ static const char* final_states_format_str  =
 
 void print_grouped_DFA(const G_DFA& gdfa)
 {
-    printf(num_of_states_format_str, a.jumps.size());
-    printf(begin_state_format_str, a.begin_state);
+    printf(num_of_states_format_str, gdfa.jumps.size());
+    printf(begin_state_format_str, gdfa.begin_state);
 
     printf(final_states_format_str);
-    print_set(a.final_states, print_size_t);
+    print_set(gdfa.final_states, print_size_t);
     putchar('\n');
 
     size_t current_state = 0;
-    for(const auto& state_jumps : a.jumps){
+    for(const auto& state_jumps : gdfa.jumps){
         for(const auto& j : state_jumps){
             Category cat = j.first;
             auto     sa  = j.second;

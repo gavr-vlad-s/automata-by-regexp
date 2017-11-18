@@ -7,10 +7,10 @@
              gavvs1977@yandex.ru
 */
 
-#include "../include/grouped_DFA_by_regexp.h"
+#include "../include/groupped_dfa_by_regexp.h"
 #include "../include/ndfa.h"
 #include "../include/dfa.h"
-#include "../minimal_dfa.h"
+#include "../include/minimal_dfa.h"
 #include "../include/fuse_commands.h"
 #include "../include/categories.h"
 #include <algorithm>
@@ -69,9 +69,9 @@ static void fuse_DFA_jumps(G_DFA& gdfa,
     gdfa.final_states = min_dfa.final_states;
 }
 
-void grouped_DFA_by_uwrapped_regexp(G_DFA&                           gdfa,
-                                    const Command_buffer&            buf,
-                                    const Trie_for_set_of_char32ptr& t)
+void grouped_DFA_by_regexp(G_DFA&                           gdfa,
+                           const Command_buffer&            buf,
+                           const Trie_for_set_of_char32ptr& t)
 {
     auto               buf_  = fuse_commands(buf);
     NDFA               ndfa;

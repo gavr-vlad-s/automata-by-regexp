@@ -20,7 +20,7 @@ enum class Category_kind{
 };
 
 struct Category{
-    Category_kind kind = Set_of_cs;
+    Category_kind kind = Category_kind::Set_of_cs;
     Set_of_char   s;
 };
 

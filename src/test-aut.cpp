@@ -32,6 +32,8 @@
 #include "../include/ndfa.h"
 #include "../include/dfa.h"
 #include "../include/minimal_dfa.h"
+#include "../include/groupped_dfa.h"
+#include "../include/groupped_dfa_by_regexp.h"
 // #include "../include/act_expr_parser.h"
 
 // #include "../include/test_expr_scaner.h"
@@ -104,6 +106,13 @@ static const char* minimized_deterministic_aut =
     R"~(
 ***********************************************************
 *          Minimized deterministic automaton:             *
+***********************************************************)~";
+
+static const char* minimized_groupped_deterministic_aut =
+    R"~(
+***********************************************************
+*          Minimized deterministic automaton              *
+*              with groupped transitions:                 *
 ***********************************************************)~";
 
 void add_action(Errors_and_tries&       etr,
@@ -198,6 +207,11 @@ int main(int argc, char** argv)
             puts(minimized_deterministic_aut);
             minimize_DFA(min_daut, daut);
             print_minimal_DFA(min_daut, trie_for_sets);
+
+            G_DFA gdfa;
+            puts(minimized_groupped_deterministic_aut);
+            grouped_DFA_by_regexp(gdfa, commands, trie_for_sets);
+            print_grouped_DFA(gdfa);
         }
     }
     return 0;

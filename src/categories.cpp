@@ -131,7 +131,7 @@ Category operator + (const Category& c1, const Category& c2){
         };
         bool   k1_is_set = Category_kind::Set_of_cs == k1;
         bool   k2_is_set = Category_kind::Set_of_cs == k2;
-        Branch b         = static_cast<Branch>(b1 * 2 + b2);
+        Branch b         = static_cast<Branch>(k1_is_set * 2 + k2_is_set);
         switch(b){
             case Not_set_and_not_set:
                 {
@@ -180,7 +180,7 @@ bool operator * (const Category& c1, const Category& c2){
     };
 
     Branch b = static_cast<Branch>(3 * static_cast<unsigned>(k1) +
-                                   static_cast<unsigned>(k1));
+                                   static_cast<unsigned>(k2));
 
     switch(b){
         case Branch::All_and_set:
@@ -233,7 +233,7 @@ bool is_subcategory(const Category& c1, const Category& c2){
         };
         bool   k1_is_set = Category_kind::Set_of_cs == k1;
         bool   k2_is_set = Category_kind::Set_of_cs == k2;
-        Branch b         = static_cast<Branch>(b1 * 2 + b2);
+        Branch b         = static_cast<Branch>(k1_is_set * 2 + k2_is_set);
         switch(b){
             case Not_set_and_not_set:
                 is_subseteq(c2.s, c1.s);
