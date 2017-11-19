@@ -142,7 +142,8 @@ void add_action(Errors_and_tries&       etr,
 static const std::vector<std::u32string> matched_strings = {
     U"0x123ABCDEF", U"0X127aAbBcCdDeEfF",
     U"0b11011011",  U"0B110111",
-    U"0123789456",  U"76543218900"
+    U"0123789456",  U"76543218900",
+    U"0Ae",         U"identifier"
 };
 
 int main(int argc, char** argv)
@@ -220,6 +221,13 @@ int main(int argc, char** argv)
             puts(minimized_groupped_deterministic_aut);
             grouped_DFA_by_regexp(gdfa, commands, trie_for_sets);
             print_grouped_DFA(gdfa);
+
+            for(const auto& str : matched_strings){
+                bool        is_matched  = match(gdfa, str);
+                std::string str_as_utf8 = u32string_to_utf8(str);
+                printf("string %s is %s\n", str_as_utf8.c_str(),
+                                            is_matched ? "matched" : "not matched");
+            }
         }
     }
     return 0;
