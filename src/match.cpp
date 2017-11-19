@@ -74,16 +74,16 @@ bool match(const G_DFA& gdfa, const std::u32string& str)
     return is_elem(current_state, final_states);
 }
 
-/**
- * \param [in] gdfa  a deterministic finite automaton with grouped transitions
- * \param [in] strs  matched strings
- * \result
- *      true, if any string of the vector strs matches the regular expression on
- *            which the deterministic finite automaton was built
- *      false, otherwise
- */
-bool match_all(const G_DFA& gdfa, const std::vector<std::u32string>& strs)
-{
-    return std::all_of(strs.begin(), strs.end(),
-                       [&gdfa](const std::u32string& s){return match(gdfa, s);});
-}
+// /**
+//  * \param [in] gdfa  a deterministic finite automaton with grouped transitions
+//  * \param [in] strs  matched strings
+//  * \result
+//  *      true, if any string of the vector strs matches the regular expression on
+//  *            which the deterministic finite automaton was built
+//  *      false, otherwise
+//  */
+// bool match_all(const G_DFA& gdfa, const std::vector<std::u32string>& strs)
+// {
+//     return std::all_of(strs.begin(), strs.end(),
+//                        [&gdfa](const std::u32string& s){return match(gdfa, s);});
+// }

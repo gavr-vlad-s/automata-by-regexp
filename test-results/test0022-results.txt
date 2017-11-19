@@ -349,3 +349,4 @@ string 0123789456 is matched
 string 76543218900 is matched
 string 0Ae is not matched
 string identifier is not matched
+Result of the function match_all: not all strings are matched.

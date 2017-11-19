@@ -229,7 +229,7 @@ int main(int argc, char** argv)
                                             is_matched ? "matched" : "not matched");
             }
 
-            bool r = match_all(gdfa, matched_strings);
+            bool r = match_all(gdfa, matched_strings.begin(), matched_strings.end());
             printf("Result of the function match_all: %s.\n",
                    r ? "all strings are matched" : "not all strings are matched");
 
