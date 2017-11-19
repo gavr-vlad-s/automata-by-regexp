@@ -228,6 +228,11 @@ int main(int argc, char** argv)
                 printf("string %s is %s\n", str_as_utf8.c_str(),
                                             is_matched ? "matched" : "not matched");
             }
+
+            bool r = match_all(gdfa, matched_strings);
+            printf("Result of the function match_all: %s.\n",
+                   r ? "all strings are matched" : "not all strings are matched");
+
         }
     }
     return 0;

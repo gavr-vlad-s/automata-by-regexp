@@ -7,7 +7,7 @@
              gavvs1977@yandex.ru
 */
 
-#define DEBUG_MODE
+// #define DEBUG_MODE
 
 #include <utility>
 #include <algorithm>
@@ -23,12 +23,6 @@
 
 static bool is_category_elem(char32_t c, const Category& cat)
 {
-#ifdef DEBUG_MODE
-    printf("Current character: %s\n", char32_to_utf8(c).c_str());
-    printf("Current category: ");
-    print_category(cat);
-    putchar('\n');
-#endif
     bool ret_val = false;
     switch(cat.kind){
         case Category_kind::All_chars:
@@ -43,22 +37,7 @@ static bool is_category_elem(char32_t c, const Category& cat)
         default:
             ;
     }
-#ifdef DEBUG_MODE
-    printf("returned value: %s\n", ret_val ? "true" : "false");
-#endif
     return ret_val;
-}
-
-static std::pair<bool, size_t> next_state(char32_t c, const G_DFA_state_jumps& js)
-{
-    for(const auto& j : js){
-        auto& cat    = j.first;
-        auto  target = j.second;
-        if(is_category_elem(c, cat)){
-            return {true, target.st};
-        }
-    }
-    return {false, 0};
 }
 
 /**
@@ -71,26 +50,28 @@ static std::pair<bool, size_t> next_state(char32_t c, const G_DFA_state_jumps& j
  */
 bool match(const G_DFA& gdfa, const std::u32string& str)
 {
-#ifdef DEBUG_MODE
-    printf("**********************************************\n");
-    printf("Matched string: '%s'\n", u32string_to_utf8(str).c_str());
-#endif
     using operations_with_sets::is_elem;
-    bool   ret_val      = false;
 
     size_t begin_state  = gdfa.begin_state;
     auto&  final_states = gdfa.final_states;
     auto&  jumps        = gdfa.jumps;
 
     size_t current_state = begin_state;
-    for(const char32_t c : str){
-        auto& js = jumps[current_state];
-        auto  p  = next_state(c, js);
-        if(!p.first){break;}
-        current_state = p.second;
+
+    size_t i             = 0;
+    size_t len           = str.size();
+    for( ; i < len; ++i){
+        char32_t c = str[i];
+        auto& js   = jumps[current_state];
+        auto  pred = [c](auto& a)->bool{return is_category_elem(c, a.first);};
+        auto  it   = std::find_if(js.begin(), js.end(), pred);
+        if(it != js.end()){
+            current_state = (it->second).st;
+        }else{
+            if(i + 1 < len){return false;}
+        }
     }
-    ret_val = is_elem(current_state, final_states);
-    return ret_val;
+    return is_elem(current_state, final_states);
 }
 
 /**
