@@ -11,6 +11,7 @@
 #include <cstdio>
 #include <memory>
 #include <string>
+#include <vector>
 // #include "../include/fsize.h"
 // #include "../include/error_count.h"
 #include "../include/location.h"
@@ -34,6 +35,7 @@
 #include "../include/minimal_dfa.h"
 #include "../include/groupped_dfa.h"
 #include "../include/groupped_dfa_by_regexp.h"
+#include "../include/match.h"
 // #include "../include/act_expr_parser.h"
 
 // #include "../include/test_expr_scaner.h"
@@ -136,6 +138,12 @@ void add_action(Errors_and_tries&       etr,
     printf("Index of action with name %s is %zu.\n",
            name_in_utf8.c_str(), idx);
 }
+
+static const std::vector<std::u32string> matched_strings = {
+    U"0x123ABCDEF", U"0X127aAbBcCdDeEfF",
+    U"0b11011011",  U"0B110111",
+    U"0123789456",  U"76543218900"
+};
 
 int main(int argc, char** argv)
 {
