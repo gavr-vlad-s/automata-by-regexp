@@ -7,14 +7,29 @@
              gavvs1977@yandex.ru
 */
 
+#define DEBUG_MODE
+
 #include <utility>
+#include <algorithm>
+
+#ifdef DEBUG_MODE
+#    include <cstdio>
+#    include "../include/char_conv.h"
+#endif
+
 #include "../include/match.h"
 #include "../include/categories.h"
 #include "../include/operations_with_sets.h"
 
-bool is_category_elem(char32_t c, const Category& cat)
+static bool is_category_elem(char32_t c, const Category& cat)
 {
-    bool ret_val;
+#ifdef DEBUG_MODE
+    printf("Current character: %s\n", char32_to_utf8(c).c_str());
+    printf("Current category: ");
+    print_category(cat);
+    putchar('\n');
+#endif
+    bool ret_val = false;
     switch(cat.kind){
         case Category_kind::All_chars:
             ret_val = true;
@@ -25,22 +40,25 @@ bool is_category_elem(char32_t c, const Category& cat)
         case Category_kind::Set_of_cs_complement:
             ret_val = !operations_with_sets::is_elem(c, cat.s);
             break;
+        default:
+            ;
     }
+#ifdef DEBUG_MODE
+    printf("returned value: %s\n", ret_val ? "true" : "false");
+#endif
     return ret_val;
 }
 
-std::pair<bool, size_t> next_state(char32_t c, const G_DFA_state_jumps& js)
+static std::pair<bool, size_t> next_state(char32_t c, const G_DFA_state_jumps& js)
 {
-    std::pair<bool, size_t> ret_val = {false, 0};
     for(const auto& j : js){
-        auto& cat = j.first;
+        auto& cat    = j.first;
+        auto  target = j.second;
         if(is_category_elem(c, cat)){
-            ret_val.first  = true;
-            ret_val.second = j.second.st;
-            break;
+            return {true, target.st};
         }
     }
-    return ret_val;
+    return {false, 0};
 }
 
 /**
@@ -53,8 +71,12 @@ std::pair<bool, size_t> next_state(char32_t c, const G_DFA_state_jumps& js)
  */
 bool match(const G_DFA& gdfa, const std::u32string& str)
 {
+#ifdef DEBUG_MODE
+    printf("**********************************************\n");
+    printf("Matched string: '%s'\n", u32string_to_utf8(str).c_str());
+#endif
     using operations_with_sets::is_elem;
-    bool   ret_val      = true;
+    bool   ret_val      = false;
 
     size_t begin_state  = gdfa.begin_state;
     auto&  final_states = gdfa.final_states;
@@ -64,13 +86,10 @@ bool match(const G_DFA& gdfa, const std::u32string& str)
     for(const char32_t c : str){
         auto& js = jumps[current_state];
         auto  p  = next_state(c, js);
-        if(p.first){
-            current_state = p.second;
-        }else{
-            ret_val = is_elem(current_state, final_states);
-            break;
-        }
+        if(!p.first){break;}
+        current_state = p.second;
     }
+    ret_val = is_elem(current_state, final_states);
     return ret_val;
 }
 
@@ -84,12 +103,6 @@ bool match(const G_DFA& gdfa, const std::u32string& str)
  */
 bool match_all(const G_DFA& gdfa, const std::vector<std::u32string>& strs)
 {
-    bool ret_val = true;
-    for(const auto& s : strs){
-        ret_val = match(gdfa, s);
-        if(!ret_val){
-            break;
-        }
-    }
-    return ret_val;
+    return std::all_of(strs.begin(), strs.end(),
+                       [&gdfa](const std::u32string& s){return match(gdfa, s);});
 }

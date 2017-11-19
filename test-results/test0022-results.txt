@@ -1,0 +1,607 @@
+Index of action with name write is 5.
+Index of action with name add_dec_digit is 18.
+Index of action with name add_hex_digit is 27.
+Index of action with name add_bin_digit is 36.
+
+***********************************************************
+*                     Before fusing:                      *
+***********************************************************
+0000: Char, action_name: 0 '0'
+0001: Char, action_name: 0 'x'
+0002: Char, action_name: 0 'X'
+0003: Or, action_name: 0 {first_arg: 1, second_arg: 2}
+0004: Concat, action_name: 0 {first_arg: 0, second_arg: 3}
+0005: Char_class, action_name: 27 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+0006: Positive, action_name: 0 {first_arg: 5, second_arg: 0}
+0007: Concat, action_name: 0 {first_arg: 4, second_arg: 6}
+0008: Char_class, action_name: 18 {'0','1','2','3','4','5','6','7','8','9'}
+0009: Positive, action_name: 0 {first_arg: 8, second_arg: 0}
+0010: Or, action_name: 0 {first_arg: 7, second_arg: 9}
+0011: Char, action_name: 0 '0'
+0012: Char, action_name: 0 'b'
+0013: Char, action_name: 0 'B'
+0014: Or, action_name: 0 {first_arg: 12, second_arg: 13}
+0015: Concat, action_name: 0 {first_arg: 11, second_arg: 14}
+0016: Char_class, action_name: 36 {'0','1'}
+0017: Positive, action_name: 0 {first_arg: 16, second_arg: 0}
+0018: Concat, action_name: 0 {first_arg: 15, second_arg: 17}
+0019: Or, action_name: 0 {first_arg: 10, second_arg: 18}
+
+***********************************************************
+*                     After fusing:                       *
+***********************************************************
+0000: Char, action_name: 0 '0'
+0001: Char, action_name: 0 'x'
+0002: Char, action_name: 0 'X'
+0003: Multior, action_name: 0 {first_arg: 1, second_arg: 2}
+0004: Concat, action_name: 0 {first_arg: 0, second_arg: 3}
+0005: Char_class, action_name: 27 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+0006: Positive, action_name: 0 {first_arg: 5, second_arg: 0}
+0007: Concat, action_name: 0 {first_arg: 4, second_arg: 6}
+0008: Char_class, action_name: 18 {'0','1','2','3','4','5','6','7','8','9'}
+0009: Positive, action_name: 0 {first_arg: 8, second_arg: 0}
+0010: Or, action_name: 0 {first_arg: 7, second_arg: 9}
+0011: Char, action_name: 0 '0'
+0012: Char, action_name: 0 'b'
+0013: Char, action_name: 0 'B'
+0014: Multior, action_name: 0 {first_arg: 12, second_arg: 13}
+0015: Concat, action_name: 0 {first_arg: 11, second_arg: 14}
+0016: Char_class, action_name: 36 {'0','1'}
+0017: Positive, action_name: 0 {first_arg: 16, second_arg: 0}
+0018: Concat, action_name: 0 {first_arg: 15, second_arg: 17}
+0019: Or, action_name: 0 {first_arg: 10, second_arg: 18}
+
+***********************************************************
+*            Non-deterministic automaton:                 *
+***********************************************************
+begin_state: 0
+final_state: 30
+transitions:
+delta(0, epsilon ) = {1,19} with action having index 0
+delta(1, epsilon ) = {2,13} with action having index 0
+delta(2, Char '0') = {3} with action having index 0
+delta(3, epsilon ) = {4,5} with action having index 0
+delta(4, Char 'x') = {6} with action having index 0
+delta(5, Char 'X') = {7} with action having index 0
+delta(6, epsilon ) = {8} with action having index 0
+delta(7, epsilon ) = {8} with action having index 0
+delta(8, Char_class {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = {9} with action having index 27
+delta(9, epsilon ) = {10,12} with action having index 0
+delta(10, Char_class {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = {11} with action having index 27
+delta(11, epsilon ) = {10,12} with action having index 0
+delta(12, epsilon ) = {18} with action having index 0
+delta(13, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {14} with action having index 18
+delta(14, epsilon ) = {15,17} with action having index 0
+delta(15, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {16} with action having index 18
+delta(16, epsilon ) = {15,17} with action having index 0
+delta(17, epsilon ) = {18} with action having index 0
+delta(18, epsilon ) = {30} with action having index 0
+delta(19, Char '0') = {20} with action having index 0
+delta(20, epsilon ) = {21,22} with action having index 0
+delta(21, Char 'b') = {23} with action having index 0
+delta(22, Char 'B') = {24} with action having index 0
+delta(23, epsilon ) = {25} with action having index 0
+delta(24, epsilon ) = {25} with action having index 0
+delta(25, Char_class {'0','1'}) = {26} with action having index 36
+delta(26, epsilon ) = {27,29} with action having index 0
+delta(27, Char_class {'0','1'}) = {28} with action having index 36
+delta(28, epsilon ) = {27,29} with action having index 0
+delta(29, epsilon ) = {30} with action having index 0
+
+***********************************************************
+*                Deterministic automaton:                 *
+***********************************************************
+Number of states of DFA: 12.
+Begin state of DFA: 0.
+Final states of DFA: {1,2,3,8,9,10,11}
+delta(0, Char '0') = 1 with action having index 18
+delta(0, Char '1') = 2 with action having index 18
+delta(0, Char '2') = 2 with action having index 18
+delta(0, Char '3') = 2 with action having index 18
+delta(0, Char '4') = 2 with action having index 18
+delta(0, Char '5') = 2 with action having index 18
+delta(0, Char '6') = 2 with action having index 18
+delta(0, Char '7') = 2 with action having index 18
+delta(0, Char '8') = 2 with action having index 18
+delta(0, Char '9') = 2 with action having index 18
+delta(1, Char '0') = 3 with action having index 18
+delta(1, Char '1') = 3 with action having index 18
+delta(1, Char '2') = 3 with action having index 18
+delta(1, Char '3') = 3 with action having index 18
+delta(1, Char '4') = 3 with action having index 18
+delta(1, Char '5') = 3 with action having index 18
+delta(1, Char '6') = 3 with action having index 18
+delta(1, Char '7') = 3 with action having index 18
+delta(1, Char '8') = 3 with action having index 18
+delta(1, Char '9') = 3 with action having index 18
+delta(1, Char 'B') = 4 with action having index 0
+delta(1, Char 'X') = 5 with action having index 0
+delta(1, Char 'b') = 6 with action having index 0
+delta(1, Char 'x') = 7 with action having index 0
+delta(2, Char '0') = 3 with action having index 18
+delta(2, Char '1') = 3 with action having index 18
+delta(2, Char '2') = 3 with action having index 18
+delta(2, Char '3') = 3 with action having index 18
+delta(2, Char '4') = 3 with action having index 18
+delta(2, Char '5') = 3 with action having index 18
+delta(2, Char '6') = 3 with action having index 18
+delta(2, Char '7') = 3 with action having index 18
+delta(2, Char '8') = 3 with action having index 18
+delta(2, Char '9') = 3 with action having index 18
+delta(3, Char '0') = 3 with action having index 18
+delta(3, Char '1') = 3 with action having index 18
+delta(3, Char '2') = 3 with action having index 18
+delta(3, Char '3') = 3 with action having index 18
+delta(3, Char '4') = 3 with action having index 18
+delta(3, Char '5') = 3 with action having index 18
+delta(3, Char '6') = 3 with action having index 18
+delta(3, Char '7') = 3 with action having index 18
+delta(3, Char '8') = 3 with action having index 18
+delta(3, Char '9') = 3 with action having index 18
+delta(4, Char '0') = 10 with action having index 36
+delta(4, Char '1') = 10 with action having index 36
+delta(5, Char '0') = 8 with action having index 27
+delta(5, Char '1') = 8 with action having index 27
+delta(5, Char '2') = 8 with action having index 27
+delta(5, Char '3') = 8 with action having index 27
+delta(5, Char '4') = 8 with action having index 27
+delta(5, Char '5') = 8 with action having index 27
+delta(5, Char '6') = 8 with action having index 27
+delta(5, Char '7') = 8 with action having index 27
+delta(5, Char '8') = 8 with action having index 27
+delta(5, Char '9') = 8 with action having index 27
+delta(5, Char 'A') = 8 with action having index 27
+delta(5, Char 'B') = 8 with action having index 27
+delta(5, Char 'C') = 8 with action having index 27
+delta(5, Char 'D') = 8 with action having index 27
+delta(5, Char 'E') = 8 with action having index 27
+delta(5, Char 'F') = 8 with action having index 27
+delta(5, Char 'a') = 8 with action having index 27
+delta(5, Char 'b') = 8 with action having index 27
+delta(5, Char 'c') = 8 with action having index 27
+delta(5, Char 'd') = 8 with action having index 27
+delta(5, Char 'e') = 8 with action having index 27
+delta(5, Char 'f') = 8 with action having index 27
+delta(6, Char '0') = 10 with action having index 36
+delta(6, Char '1') = 10 with action having index 36
+delta(7, Char '0') = 8 with action having index 27
+delta(7, Char '1') = 8 with action having index 27
+delta(7, Char '2') = 8 with action having index 27
+delta(7, Char '3') = 8 with action having index 27
+delta(7, Char '4') = 8 with action having index 27
+delta(7, Char '5') = 8 with action having index 27
+delta(7, Char '6') = 8 with action having index 27
+delta(7, Char '7') = 8 with action having index 27
+delta(7, Char '8') = 8 with action having index 27
+delta(7, Char '9') = 8 with action having index 27
+delta(7, Char 'A') = 8 with action having index 27
+delta(7, Char 'B') = 8 with action having index 27
+delta(7, Char 'C') = 8 with action having index 27
+delta(7, Char 'D') = 8 with action having index 27
+delta(7, Char 'E') = 8 with action having index 27
+delta(7, Char 'F') = 8 with action having index 27
+delta(7, Char 'a') = 8 with action having index 27
+delta(7, Char 'b') = 8 with action having index 27
+delta(7, Char 'c') = 8 with action having index 27
+delta(7, Char 'd') = 8 with action having index 27
+delta(7, Char 'e') = 8 with action having index 27
+delta(7, Char 'f') = 8 with action having index 27
+delta(8, Char '0') = 9 with action having index 27
+delta(8, Char '1') = 9 with action having index 27
+delta(8, Char '2') = 9 with action having index 27
+delta(8, Char '3') = 9 with action having index 27
+delta(8, Char '4') = 9 with action having index 27
+delta(8, Char '5') = 9 with action having index 27
+delta(8, Char '6') = 9 with action having index 27
+delta(8, Char '7') = 9 with action having index 27
+delta(8, Char '8') = 9 with action having index 27
+delta(8, Char '9') = 9 with action having index 27
+delta(8, Char 'A') = 9 with action having index 27
+delta(8, Char 'B') = 9 with action having index 27
+delta(8, Char 'C') = 9 with action having index 27
+delta(8, Char 'D') = 9 with action having index 27
+delta(8, Char 'E') = 9 with action having index 27
+delta(8, Char 'F') = 9 with action having index 27
+delta(8, Char 'a') = 9 with action having index 27
+delta(8, Char 'b') = 9 with action having index 27
+delta(8, Char 'c') = 9 with action having index 27
+delta(8, Char 'd') = 9 with action having index 27
+delta(8, Char 'e') = 9 with action having index 27
+delta(8, Char 'f') = 9 with action having index 27
+delta(9, Char '0') = 9 with action having index 27
+delta(9, Char '1') = 9 with action having index 27
+delta(9, Char '2') = 9 with action having index 27
+delta(9, Char '3') = 9 with action having index 27
+delta(9, Char '4') = 9 with action having index 27
+delta(9, Char '5') = 9 with action having index 27
+delta(9, Char '6') = 9 with action having index 27
+delta(9, Char '7') = 9 with action having index 27
+delta(9, Char '8') = 9 with action having index 27
+delta(9, Char '9') = 9 with action having index 27
+delta(9, Char 'A') = 9 with action having index 27
+delta(9, Char 'B') = 9 with action having index 27
+delta(9, Char 'C') = 9 with action having index 27
+delta(9, Char 'D') = 9 with action having index 27
+delta(9, Char 'E') = 9 with action having index 27
+delta(9, Char 'F') = 9 with action having index 27
+delta(9, Char 'a') = 9 with action having index 27
+delta(9, Char 'b') = 9 with action having index 27
+delta(9, Char 'c') = 9 with action having index 27
+delta(9, Char 'd') = 9 with action having index 27
+delta(9, Char 'e') = 9 with action having index 27
+delta(9, Char 'f') = 9 with action having index 27
+delta(10, Char '0') = 11 with action having index 36
+delta(10, Char '1') = 11 with action having index 36
+delta(11, Char '0') = 11 with action having index 36
+delta(11, Char '1') = 11 with action having index 36
+
+***********************************************************
+*          Minimized deterministic automaton:             *
+***********************************************************
+Number of states of minimized DFA: 7.
+Begin state of minimized DFA:      0.
+Final states of minimized DFA: {1,2,3,4}
+delta(0, Char '0') = 3 with action having index 18
+delta(0, Char '1') = 2 with action having index 18
+delta(0, Char '2') = 2 with action having index 18
+delta(0, Char '3') = 2 with action having index 18
+delta(0, Char '4') = 2 with action having index 18
+delta(0, Char '5') = 2 with action having index 18
+delta(0, Char '6') = 2 with action having index 18
+delta(0, Char '7') = 2 with action having index 18
+delta(0, Char '8') = 2 with action having index 18
+delta(0, Char '9') = 2 with action having index 18
+delta(1, Char '0') = 1 with action having index 36
+delta(1, Char '1') = 1 with action having index 36
+delta(2, Char '0') = 2 with action having index 18
+delta(2, Char '1') = 2 with action having index 18
+delta(2, Char '2') = 2 with action having index 18
+delta(2, Char '3') = 2 with action having index 18
+delta(2, Char '4') = 2 with action having index 18
+delta(2, Char '5') = 2 with action having index 18
+delta(2, Char '6') = 2 with action having index 18
+delta(2, Char '7') = 2 with action having index 18
+delta(2, Char '8') = 2 with action having index 18
+delta(2, Char '9') = 2 with action having index 18
+delta(3, Char '0') = 2 with action having index 18
+delta(3, Char '1') = 2 with action having index 18
+delta(3, Char '2') = 2 with action having index 18
+delta(3, Char '3') = 2 with action having index 18
+delta(3, Char '4') = 2 with action having index 18
+delta(3, Char '5') = 2 with action having index 18
+delta(3, Char '6') = 2 with action having index 18
+delta(3, Char '7') = 2 with action having index 18
+delta(3, Char '8') = 2 with action having index 18
+delta(3, Char '9') = 2 with action having index 18
+delta(3, Char 'B') = 5 with action having index 0
+delta(3, Char 'X') = 6 with action having index 0
+delta(3, Char 'b') = 5 with action having index 0
+delta(3, Char 'x') = 6 with action having index 0
+delta(4, Char '0') = 4 with action having index 27
+delta(4, Char '1') = 4 with action having index 27
+delta(4, Char '2') = 4 with action having index 27
+delta(4, Char '3') = 4 with action having index 27
+delta(4, Char '4') = 4 with action having index 27
+delta(4, Char '5') = 4 with action having index 27
+delta(4, Char '6') = 4 with action having index 27
+delta(4, Char '7') = 4 with action having index 27
+delta(4, Char '8') = 4 with action having index 27
+delta(4, Char '9') = 4 with action having index 27
+delta(4, Char 'A') = 4 with action having index 27
+delta(4, Char 'B') = 4 with action having index 27
+delta(4, Char 'C') = 4 with action having index 27
+delta(4, Char 'D') = 4 with action having index 27
+delta(4, Char 'E') = 4 with action having index 27
+delta(4, Char 'F') = 4 with action having index 27
+delta(4, Char 'a') = 4 with action having index 27
+delta(4, Char 'b') = 4 with action having index 27
+delta(4, Char 'c') = 4 with action having index 27
+delta(4, Char 'd') = 4 with action having index 27
+delta(4, Char 'e') = 4 with action having index 27
+delta(4, Char 'f') = 4 with action having index 27
+delta(5, Char '0') = 1 with action having index 36
+delta(5, Char '1') = 1 with action having index 36
+delta(6, Char '0') = 4 with action having index 27
+delta(6, Char '1') = 4 with action having index 27
+delta(6, Char '2') = 4 with action having index 27
+delta(6, Char '3') = 4 with action having index 27
+delta(6, Char '4') = 4 with action having index 27
+delta(6, Char '5') = 4 with action having index 27
+delta(6, Char '6') = 4 with action having index 27
+delta(6, Char '7') = 4 with action having index 27
+delta(6, Char '8') = 4 with action having index 27
+delta(6, Char '9') = 4 with action having index 27
+delta(6, Char 'A') = 4 with action having index 27
+delta(6, Char 'B') = 4 with action having index 27
+delta(6, Char 'C') = 4 with action having index 27
+delta(6, Char 'D') = 4 with action having index 27
+delta(6, Char 'E') = 4 with action having index 27
+delta(6, Char 'F') = 4 with action having index 27
+delta(6, Char 'a') = 4 with action having index 27
+delta(6, Char 'b') = 4 with action having index 27
+delta(6, Char 'c') = 4 with action having index 27
+delta(6, Char 'd') = 4 with action having index 27
+delta(6, Char 'e') = 4 with action having index 27
+delta(6, Char 'f') = 4 with action having index 27
+
+***********************************************************
+*          Minimized deterministic automaton              *
+*              with groupped transitions:                 *
+***********************************************************
+Number of states of minimized DFA with grouped transitions: 7.
+Begin state of minimized DFA:                               0.
+Final states of minimized DFA: {1,2,3,4}
+delta(0, Set_of_cs {'0'}) = 3 with action having index 18
+delta(0, Set_of_cs {'1','2','3','4','5','6','7','8','9'}) = 2 with action having index 18
+delta(1, Set_of_cs {'0','1'}) = 1 with action having index 36
+delta(2, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 2 with action having index 18
+delta(3, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 2 with action having index 18
+delta(3, Set_of_cs {'B','b'}) = 5 with action having index 0
+delta(3, Set_of_cs {'X','x'}) = 6 with action having index 0
+delta(4, Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = 4 with action having index 27
+delta(5, Set_of_cs {'0','1'}) = 1 with action having index 36
+delta(6, Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = 4 with action having index 27
+**********************************************
+Matched string: '0x123ABCDEF'
+Current character: 0
+Current category: Set_of_cs {'0'}
+returned value: true
+Current character: x
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: false
+Current character: x
+Current category: Set_of_cs {'B','b'}
+returned value: false
+Current character: x
+Current category: Set_of_cs {'X','x'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: 2
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: 3
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: A
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: B
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: C
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: D
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: E
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: F
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+string 0x123ABCDEF is matched
+**********************************************
+Matched string: '0X127aAbBcCdDeEfF'
+Current character: 0
+Current category: Set_of_cs {'0'}
+returned value: true
+Current character: X
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: false
+Current character: X
+Current category: Set_of_cs {'B','b'}
+returned value: false
+Current character: X
+Current category: Set_of_cs {'X','x'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: 2
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: 7
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: a
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: A
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: b
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: B
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: c
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: C
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: d
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: D
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: e
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: E
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: f
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+Current character: F
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+returned value: true
+string 0X127aAbBcCdDeEfF is matched
+**********************************************
+Matched string: '0b11011011'
+Current character: 0
+Current category: Set_of_cs {'0'}
+returned value: true
+Current character: b
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: false
+Current character: b
+Current category: Set_of_cs {'B','b'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 0
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 0
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+string 0b11011011 is matched
+**********************************************
+Matched string: '0B110111'
+Current character: 0
+Current category: Set_of_cs {'0'}
+returned value: true
+Current character: B
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: false
+Current character: B
+Current category: Set_of_cs {'B','b'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 0
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1'}
+returned value: true
+string 0B110111 is matched
+**********************************************
+Matched string: '0123789456'
+Current character: 0
+Current category: Set_of_cs {'0'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 2
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 3
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 7
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 8
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 9
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 4
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 5
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 6
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+string 0123789456 is matched
+**********************************************
+Matched string: '76543218900'
+Current character: 7
+Current category: Set_of_cs {'0'}
+returned value: false
+Current character: 7
+Current category: Set_of_cs {'1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 6
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 5
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 4
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 3
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 2
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 1
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 8
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 9
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 0
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+Current character: 0
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: true
+string 76543218900 is matched
+**********************************************
+Matched string: '0Ae'
+Current character: 0
+Current category: Set_of_cs {'0'}
+returned value: true
+Current character: A
+Current category: Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}
+returned value: false
+Current character: A
+Current category: Set_of_cs {'B','b'}
+returned value: false
+Current character: A
+Current category: Set_of_cs {'X','x'}
+returned value: false
+string 0Ae is matched
+**********************************************
+Matched string: 'identifier'
+Current character: i
+Current category: Set_of_cs {'0'}
+returned value: false
+Current character: i
+Current category: Set_of_cs {'1','2','3','4','5','6','7','8','9'}
+returned value: false
+string identifier is not matched
