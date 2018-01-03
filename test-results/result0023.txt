@@ -1,0 +1,874 @@
+Index of action with name write is 5.
+Index of action with name add_dec_digit is 18.
+Index of action with name add_hex_digit is 27.
+Index of action with name add_bin_digit is 36.
+Index of action with name SetFlag is 43.
+Index of action with name AddDecNumb is 53.
+Index of action with name AddBinNumb is 60.
+Index of action with name AddOctNumb is 67.
+Index of action with name AddHexNumb is 74.
+Index of action with name AddToDegre is 81.
+Index of action with name AddDecToFract is 88.
+Index of action with name WhatSign is 96.
+
+***********************************************************
+*                     Before fusing:                      *
+***********************************************************
+0000: Char_class, action_name: 53 {'0','1','2','3','4','5','6','7','8','9'}
+0001: Char, action_name: 0 '
+0002: Optional, action_name: 0 {first_arg: 1, second_arg: 0}
+0003: Char_class, action_name: 53 {'0','1','2','3','4','5','6','7','8','9'}
+0004: Concat, action_name: 0 {first_arg: 2, second_arg: 3}
+0005: Kleene, action_name: 0 {first_arg: 4, second_arg: 0}
+0006: Concat, action_name: 0 {first_arg: 0, second_arg: 5}
+0007: Char, action_name: 43 '.'
+0008: Char_class, action_name: 88 {'0','1','2','3','4','5','6','7','8','9'}
+0009: Concat, action_name: 0 {first_arg: 7, second_arg: 8}
+0010: Char, action_name: 0 '
+0011: Optional, action_name: 0 {first_arg: 10, second_arg: 0}
+0012: Char_class, action_name: 88 {'0','1','2','3','4','5','6','7','8','9'}
+0013: Concat, action_name: 0 {first_arg: 11, second_arg: 12}
+0014: Kleene, action_name: 0 {first_arg: 13, second_arg: 0}
+0015: Concat, action_name: 0 {first_arg: 9, second_arg: 14}
+0016: Optional, action_name: 0 {first_arg: 15, second_arg: 0}
+0017: Concat, action_name: 0 {first_arg: 6, second_arg: 16}
+0018: Char, action_name: 43 'E'
+0019: Char, action_name: 43 'e'
+0020: Or, action_name: 43 {first_arg: 18, second_arg: 19}
+0021: Char, action_name: 96 '+'
+0022: Char, action_name: 96 '-'
+0023: Or, action_name: 96 {first_arg: 21, second_arg: 22}
+0024: Optional, action_name: 0 {first_arg: 23, second_arg: 0}
+0025: Concat, action_name: 0 {first_arg: 20, second_arg: 24}
+0026: Char_class, action_name: 81 {'0','1','2','3','4','5','6','7','8','9'}
+0027: Concat, action_name: 0 {first_arg: 25, second_arg: 26}
+0028: Char, action_name: 0 '
+0029: Optional, action_name: 0 {first_arg: 28, second_arg: 0}
+0030: Char_class, action_name: 81 {'0','1','2','3','4','5','6','7','8','9'}
+0031: Concat, action_name: 0 {first_arg: 29, second_arg: 30}
+0032: Kleene, action_name: 0 {first_arg: 31, second_arg: 0}
+0033: Concat, action_name: 0 {first_arg: 27, second_arg: 32}
+0034: Optional, action_name: 0 {first_arg: 33, second_arg: 0}
+0035: Concat, action_name: 0 {first_arg: 17, second_arg: 34}
+0036: Char, action_name: 0 '0'
+0037: Char, action_name: 0 'o'
+0038: Concat, action_name: 0 {first_arg: 36, second_arg: 37}
+0039: Char_class, action_name: 67 {'0','1','2','3','4','5','6','7'}
+0040: Concat, action_name: 0 {first_arg: 38, second_arg: 39}
+0041: Char, action_name: 0 '
+0042: Optional, action_name: 0 {first_arg: 41, second_arg: 0}
+0043: Char_class, action_name: 67 {'0','1','2','3','4','5','6','7'}
+0044: Concat, action_name: 0 {first_arg: 42, second_arg: 43}
+0045: Kleene, action_name: 0 {first_arg: 44, second_arg: 0}
+0046: Concat, action_name: 0 {first_arg: 40, second_arg: 45}
+0047: Or, action_name: 0 {first_arg: 35, second_arg: 46}
+0048: Char, action_name: 0 '0'
+0049: Char, action_name: 0 'b'
+0050: Char, action_name: 0 'B'
+0051: Or, action_name: 0 {first_arg: 49, second_arg: 50}
+0052: Concat, action_name: 0 {first_arg: 48, second_arg: 51}
+0053: Char_class, action_name: 60 {'0','1'}
+0054: Concat, action_name: 0 {first_arg: 52, second_arg: 53}
+0055: Char, action_name: 0 '
+0056: Optional, action_name: 0 {first_arg: 55, second_arg: 0}
+0057: Char_class, action_name: 60 {'0','1'}
+0058: Concat, action_name: 0 {first_arg: 56, second_arg: 57}
+0059: Kleene, action_name: 0 {first_arg: 58, second_arg: 0}
+0060: Concat, action_name: 0 {first_arg: 54, second_arg: 59}
+0061: Or, action_name: 0 {first_arg: 47, second_arg: 60}
+0062: Char, action_name: 0 '0'
+0063: Char, action_name: 0 'x'
+0064: Char, action_name: 0 'X'
+0065: Or, action_name: 0 {first_arg: 63, second_arg: 64}
+0066: Concat, action_name: 0 {first_arg: 62, second_arg: 65}
+0067: Char_class, action_name: 74 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+0068: Concat, action_name: 0 {first_arg: 66, second_arg: 67}
+0069: Char, action_name: 0 '
+0070: Optional, action_name: 0 {first_arg: 69, second_arg: 0}
+0071: Char_class, action_name: 74 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+0072: Concat, action_name: 0 {first_arg: 70, second_arg: 71}
+0073: Kleene, action_name: 0 {first_arg: 72, second_arg: 0}
+0074: Concat, action_name: 0 {first_arg: 68, second_arg: 73}
+0075: Or, action_name: 0 {first_arg: 61, second_arg: 74}
+
+***********************************************************
+*                     After fusing:                       *
+***********************************************************
+0000: Char_class, action_name: 53 {'0','1','2','3','4','5','6','7','8','9'}
+0001: Char, action_name: 0 '
+0002: Optional, action_name: 0 {first_arg: 1, second_arg: 0}
+0003: Char_class, action_name: 53 {'0','1','2','3','4','5','6','7','8','9'}
+0004: Concat, action_name: 0 {first_arg: 2, second_arg: 3}
+0005: Kleene, action_name: 0 {first_arg: 4, second_arg: 0}
+0006: Concat, action_name: 0 {first_arg: 0, second_arg: 5}
+0007: Char, action_name: 43 '.'
+0008: Char_class, action_name: 88 {'0','1','2','3','4','5','6','7','8','9'}
+0009: Multiconcat, action_name: 0 {first_arg: 7, second_arg: 8}
+0010: Char, action_name: 0 '
+0011: Optional, action_name: 0 {first_arg: 10, second_arg: 0}
+0012: Char_class, action_name: 88 {'0','1','2','3','4','5','6','7','8','9'}
+0013: Concat, action_name: 0 {first_arg: 11, second_arg: 12}
+0014: Kleene, action_name: 0 {first_arg: 13, second_arg: 0}
+0015: Char, action_name: 0 '
+0016: Optional, action_name: 0 {first_arg: 15, second_arg: 0}
+0017: Char_class, action_name: 88 {'0','1','2','3','4','5','6','7','8','9'}
+0018: Concat, action_name: 0 {first_arg: 16, second_arg: 17}
+0019: Kleene, action_name: 0 {first_arg: 18, second_arg: 0}
+0020: Concat, action_name: 0 {first_arg: 9, second_arg: 19}
+0021: Optional, action_name: 0 {first_arg: 20, second_arg: 0}
+0022: Concat, action_name: 0 {first_arg: 6, second_arg: 21}
+0023: Char, action_name: 43 'E'
+0024: Char, action_name: 43 'e'
+0025: Multior, action_name: 43 {first_arg: 23, second_arg: 24}
+0026: Char, action_name: 96 '+'
+0027: Char, action_name: 96 '-'
+0028: Multior, action_name: 96 {first_arg: 26, second_arg: 27}
+0029: Optional, action_name: 0 {first_arg: 28, second_arg: 0}
+0030: Concat, action_name: 0 {first_arg: 25, second_arg: 29}
+0031: Char_class, action_name: 81 {'0','1','2','3','4','5','6','7','8','9'}
+0032: Concat, action_name: 0 {first_arg: 30, second_arg: 31}
+0033: Char, action_name: 0 '
+0034: Optional, action_name: 0 {first_arg: 33, second_arg: 0}
+0035: Char_class, action_name: 81 {'0','1','2','3','4','5','6','7','8','9'}
+0036: Concat, action_name: 0 {first_arg: 34, second_arg: 35}
+0037: Kleene, action_name: 0 {first_arg: 36, second_arg: 0}
+0038: Concat, action_name: 0 {first_arg: 32, second_arg: 37}
+0039: Optional, action_name: 0 {first_arg: 38, second_arg: 0}
+0040: Concat, action_name: 0 {first_arg: 22, second_arg: 39}
+0041: Char, action_name: 0 '0'
+0042: Char, action_name: 0 'o'
+0043: Char_class, action_name: 67 {'0','1','2','3','4','5','6','7'}
+0044: Multiconcat, action_name: 0 {first_arg: 41, second_arg: 43}
+0045: Char, action_name: 0 '
+0046: Optional, action_name: 0 {first_arg: 45, second_arg: 0}
+0047: Char_class, action_name: 67 {'0','1','2','3','4','5','6','7'}
+0048: Concat, action_name: 0 {first_arg: 46, second_arg: 47}
+0049: Kleene, action_name: 0 {first_arg: 48, second_arg: 0}
+0050: Char, action_name: 0 '
+0051: Optional, action_name: 0 {first_arg: 50, second_arg: 0}
+0052: Char_class, action_name: 67 {'0','1','2','3','4','5','6','7'}
+0053: Concat, action_name: 0 {first_arg: 51, second_arg: 52}
+0054: Kleene, action_name: 0 {first_arg: 53, second_arg: 0}
+0055: Concat, action_name: 0 {first_arg: 44, second_arg: 54}
+0056: Or, action_name: 0 {first_arg: 40, second_arg: 55}
+0057: Char, action_name: 0 '0'
+0058: Char, action_name: 0 'b'
+0059: Char, action_name: 0 'B'
+0060: Multior, action_name: 0 {first_arg: 58, second_arg: 59}
+0061: Concat, action_name: 0 {first_arg: 57, second_arg: 60}
+0062: Char_class, action_name: 60 {'0','1'}
+0063: Concat, action_name: 0 {first_arg: 61, second_arg: 62}
+0064: Char, action_name: 0 '
+0065: Optional, action_name: 0 {first_arg: 64, second_arg: 0}
+0066: Char_class, action_name: 60 {'0','1'}
+0067: Concat, action_name: 0 {first_arg: 65, second_arg: 66}
+0068: Kleene, action_name: 0 {first_arg: 67, second_arg: 0}
+0069: Concat, action_name: 0 {first_arg: 63, second_arg: 68}
+0070: Or, action_name: 0 {first_arg: 56, second_arg: 69}
+0071: Char, action_name: 0 '0'
+0072: Char, action_name: 0 'x'
+0073: Char, action_name: 0 'X'
+0074: Multior, action_name: 0 {first_arg: 72, second_arg: 73}
+0075: Concat, action_name: 0 {first_arg: 71, second_arg: 74}
+0076: Char_class, action_name: 74 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+0077: Concat, action_name: 0 {first_arg: 75, second_arg: 76}
+0078: Char, action_name: 0 '
+0079: Optional, action_name: 0 {first_arg: 78, second_arg: 0}
+0080: Char_class, action_name: 74 {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}
+0081: Concat, action_name: 0 {first_arg: 79, second_arg: 80}
+0082: Kleene, action_name: 0 {first_arg: 81, second_arg: 0}
+0083: Concat, action_name: 0 {first_arg: 77, second_arg: 82}
+0084: Or, action_name: 0 {first_arg: 70, second_arg: 83}
+
+***********************************************************
+*            Non-deterministic automaton:                 *
+***********************************************************
+begin_state: 0
+final_state: 100
+transitions:
+delta(0, epsilon ) = {1,84} with action having index 0
+delta(1, epsilon ) = {2,67} with action having index 0
+delta(2, epsilon ) = {3,54} with action having index 0
+delta(3, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {4} with action having index 53
+delta(4, epsilon ) = {5,12} with action having index 0
+delta(5, epsilon ) = {6,8} with action having index 0
+delta(6, Char ') = {7} with action having index 0
+delta(7, epsilon ) = {10} with action having index 0
+delta(8, epsilon ) = {9} with action having index 0
+delta(9, epsilon ) = {10} with action having index 0
+delta(10, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {11} with action having index 53
+delta(11, epsilon ) = {5,12} with action having index 0
+delta(12, epsilon ) = {13,24} with action having index 0
+delta(13, Char '.') = {14} with action having index 43
+delta(14, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {15} with action having index 88
+delta(15, epsilon ) = {16,23} with action having index 0
+delta(16, epsilon ) = {17,19} with action having index 0
+delta(17, Char ') = {18} with action having index 0
+delta(18, epsilon ) = {21} with action having index 0
+delta(19, epsilon ) = {20} with action having index 0
+delta(20, epsilon ) = {21} with action having index 0
+delta(21, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {22} with action having index 88
+delta(22, epsilon ) = {16,23} with action having index 0
+delta(23, epsilon ) = {26} with action having index 0
+delta(24, epsilon ) = {25} with action having index 0
+delta(25, epsilon ) = {26} with action having index 0
+delta(26, epsilon ) = {27,51} with action having index 0
+delta(27, epsilon ) = {28,29} with action having index 0
+delta(28, Char 'E') = {30} with action having index 43
+delta(29, Char 'e') = {31} with action having index 43
+delta(30, epsilon ) = {32} with action having index 0
+delta(31, epsilon ) = {32} with action having index 0
+delta(32, epsilon ) = {33,39} with action having index 0
+delta(33, epsilon ) = {34,35} with action having index 0
+delta(34, Char '+') = {36} with action having index 96
+delta(35, Char '-') = {37} with action having index 96
+delta(36, epsilon ) = {38} with action having index 0
+delta(37, epsilon ) = {38} with action having index 0
+delta(38, epsilon ) = {41} with action having index 0
+delta(39, epsilon ) = {40} with action having index 0
+delta(40, epsilon ) = {41} with action having index 0
+delta(41, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {42} with action having index 81
+delta(42, epsilon ) = {43,50} with action having index 0
+delta(43, epsilon ) = {44,46} with action having index 0
+delta(44, Char ') = {45} with action having index 0
+delta(45, epsilon ) = {48} with action having index 0
+delta(46, epsilon ) = {47} with action having index 0
+delta(47, epsilon ) = {48} with action having index 0
+delta(48, Char_class {'0','1','2','3','4','5','6','7','8','9'}) = {49} with action having index 81
+delta(49, epsilon ) = {43,50} with action having index 0
+delta(50, epsilon ) = {53} with action having index 0
+delta(51, epsilon ) = {52} with action having index 0
+delta(52, epsilon ) = {53} with action having index 0
+delta(53, epsilon ) = {66} with action having index 0
+delta(54, Char '0') = {55} with action having index 0
+delta(55, Char 'o') = {56} with action having index 0
+delta(56, Char_class {'0','1','2','3','4','5','6','7'}) = {57} with action having index 67
+delta(57, epsilon ) = {58,65} with action having index 0
+delta(58, epsilon ) = {59,61} with action having index 0
+delta(59, Char ') = {60} with action having index 0
+delta(60, epsilon ) = {63} with action having index 0
+delta(61, epsilon ) = {62} with action having index 0
+delta(62, epsilon ) = {63} with action having index 0
+delta(63, Char_class {'0','1','2','3','4','5','6','7'}) = {64} with action having index 67
+delta(64, epsilon ) = {58,65} with action having index 0
+delta(65, epsilon ) = {66} with action having index 0
+delta(66, epsilon ) = {83} with action having index 0
+delta(67, Char '0') = {68} with action having index 0
+delta(68, epsilon ) = {69,70} with action having index 0
+delta(69, Char 'b') = {71} with action having index 0
+delta(70, Char 'B') = {72} with action having index 0
+delta(71, epsilon ) = {73} with action having index 0
+delta(72, epsilon ) = {73} with action having index 0
+delta(73, Char_class {'0','1'}) = {74} with action having index 60
+delta(74, epsilon ) = {75,82} with action having index 0
+delta(75, epsilon ) = {76,78} with action having index 0
+delta(76, Char ') = {77} with action having index 0
+delta(77, epsilon ) = {80} with action having index 0
+delta(78, epsilon ) = {79} with action having index 0
+delta(79, epsilon ) = {80} with action having index 0
+delta(80, Char_class {'0','1'}) = {81} with action having index 60
+delta(81, epsilon ) = {75,82} with action having index 0
+delta(82, epsilon ) = {83} with action having index 0
+delta(83, epsilon ) = {100} with action having index 0
+delta(84, Char '0') = {85} with action having index 0
+delta(85, epsilon ) = {86,87} with action having index 0
+delta(86, Char 'x') = {88} with action having index 0
+delta(87, Char 'X') = {89} with action having index 0
+delta(88, epsilon ) = {90} with action having index 0
+delta(89, epsilon ) = {90} with action having index 0
+delta(90, Char_class {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = {91} with action having index 74
+delta(91, epsilon ) = {92,99} with action having index 0
+delta(92, epsilon ) = {93,95} with action having index 0
+delta(93, Char ') = {94} with action having index 0
+delta(94, epsilon ) = {97} with action having index 0
+delta(95, epsilon ) = {96} with action having index 0
+delta(96, epsilon ) = {97} with action having index 0
+delta(97, Char_class {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = {98} with action having index 74
+delta(98, epsilon ) = {92,99} with action having index 0
+delta(99, epsilon ) = {100} with action having index 0
+
+***********************************************************
+*                Deterministic automaton:                 *
+***********************************************************
+Number of states of DFA: 30.
+Begin state of DFA: 0.
+Final states of DFA: {1,2,5,10,12,13,15,21,23,24,26,27,29}
+delta(0, Char '0') = 1 with action having index 53
+delta(0, Char '1') = 2 with action having index 53
+delta(0, Char '2') = 2 with action having index 53
+delta(0, Char '3') = 2 with action having index 53
+delta(0, Char '4') = 2 with action having index 53
+delta(0, Char '5') = 2 with action having index 53
+delta(0, Char '6') = 2 with action having index 53
+delta(0, Char '7') = 2 with action having index 53
+delta(0, Char '8') = 2 with action having index 53
+delta(0, Char '9') = 2 with action having index 53
+delta(1, Char ') = 3 with action having index 0
+delta(1, Char '.') = 4 with action having index 43
+delta(1, Char '0') = 5 with action having index 53
+delta(1, Char '1') = 5 with action having index 53
+delta(1, Char '2') = 5 with action having index 53
+delta(1, Char '3') = 5 with action having index 53
+delta(1, Char '4') = 5 with action having index 53
+delta(1, Char '5') = 5 with action having index 53
+delta(1, Char '6') = 5 with action having index 53
+delta(1, Char '7') = 5 with action having index 53
+delta(1, Char '8') = 5 with action having index 53
+delta(1, Char '9') = 5 with action having index 53
+delta(1, Char 'B') = 16 with action having index 0
+delta(1, Char 'E') = 6 with action having index 43
+delta(1, Char 'X') = 17 with action having index 0
+delta(1, Char 'b') = 18 with action having index 0
+delta(1, Char 'e') = 7 with action having index 43
+delta(1, Char 'o') = 19 with action having index 0
+delta(1, Char 'x') = 20 with action having index 0
+delta(2, Char ') = 3 with action having index 0
+delta(2, Char '.') = 4 with action having index 43
+delta(2, Char '0') = 5 with action having index 53
+delta(2, Char '1') = 5 with action having index 53
+delta(2, Char '2') = 5 with action having index 53
+delta(2, Char '3') = 5 with action having index 53
+delta(2, Char '4') = 5 with action having index 53
+delta(2, Char '5') = 5 with action having index 53
+delta(2, Char '6') = 5 with action having index 53
+delta(2, Char '7') = 5 with action having index 53
+delta(2, Char '8') = 5 with action having index 53
+delta(2, Char '9') = 5 with action having index 53
+delta(2, Char 'E') = 6 with action having index 43
+delta(2, Char 'e') = 7 with action having index 43
+delta(3, Char '0') = 5 with action having index 53
+delta(3, Char '1') = 5 with action having index 53
+delta(3, Char '2') = 5 with action having index 53
+delta(3, Char '3') = 5 with action having index 53
+delta(3, Char '4') = 5 with action having index 53
+delta(3, Char '5') = 5 with action having index 53
+delta(3, Char '6') = 5 with action having index 53
+delta(3, Char '7') = 5 with action having index 53
+delta(3, Char '8') = 5 with action having index 53
+delta(3, Char '9') = 5 with action having index 53
+delta(4, Char '0') = 13 with action having index 88
+delta(4, Char '1') = 13 with action having index 88
+delta(4, Char '2') = 13 with action having index 88
+delta(4, Char '3') = 13 with action having index 88
+delta(4, Char '4') = 13 with action having index 88
+delta(4, Char '5') = 13 with action having index 88
+delta(4, Char '6') = 13 with action having index 88
+delta(4, Char '7') = 13 with action having index 88
+delta(4, Char '8') = 13 with action having index 88
+delta(4, Char '9') = 13 with action having index 88
+delta(5, Char ') = 3 with action having index 0
+delta(5, Char '.') = 4 with action having index 43
+delta(5, Char '0') = 5 with action having index 53
+delta(5, Char '1') = 5 with action having index 53
+delta(5, Char '2') = 5 with action having index 53
+delta(5, Char '3') = 5 with action having index 53
+delta(5, Char '4') = 5 with action having index 53
+delta(5, Char '5') = 5 with action having index 53
+delta(5, Char '6') = 5 with action having index 53
+delta(5, Char '7') = 5 with action having index 53
+delta(5, Char '8') = 5 with action having index 53
+delta(5, Char '9') = 5 with action having index 53
+delta(5, Char 'E') = 6 with action having index 43
+delta(5, Char 'e') = 7 with action having index 43
+delta(6, Char '+') = 8 with action having index 96
+delta(6, Char '-') = 9 with action having index 96
+delta(6, Char '0') = 10 with action having index 81
+delta(6, Char '1') = 10 with action having index 81
+delta(6, Char '2') = 10 with action having index 81
+delta(6, Char '3') = 10 with action having index 81
+delta(6, Char '4') = 10 with action having index 81
+delta(6, Char '5') = 10 with action having index 81
+delta(6, Char '6') = 10 with action having index 81
+delta(6, Char '7') = 10 with action having index 81
+delta(6, Char '8') = 10 with action having index 81
+delta(6, Char '9') = 10 with action having index 81
+delta(7, Char '+') = 8 with action having index 96
+delta(7, Char '-') = 9 with action having index 96
+delta(7, Char '0') = 10 with action having index 81
+delta(7, Char '1') = 10 with action having index 81
+delta(7, Char '2') = 10 with action having index 81
+delta(7, Char '3') = 10 with action having index 81
+delta(7, Char '4') = 10 with action having index 81
+delta(7, Char '5') = 10 with action having index 81
+delta(7, Char '6') = 10 with action having index 81
+delta(7, Char '7') = 10 with action having index 81
+delta(7, Char '8') = 10 with action having index 81
+delta(7, Char '9') = 10 with action having index 81
+delta(8, Char '0') = 10 with action having index 81
+delta(8, Char '1') = 10 with action having index 81
+delta(8, Char '2') = 10 with action having index 81
+delta(8, Char '3') = 10 with action having index 81
+delta(8, Char '4') = 10 with action having index 81
+delta(8, Char '5') = 10 with action having index 81
+delta(8, Char '6') = 10 with action having index 81
+delta(8, Char '7') = 10 with action having index 81
+delta(8, Char '8') = 10 with action having index 81
+delta(8, Char '9') = 10 with action having index 81
+delta(9, Char '0') = 10 with action having index 81
+delta(9, Char '1') = 10 with action having index 81
+delta(9, Char '2') = 10 with action having index 81
+delta(9, Char '3') = 10 with action having index 81
+delta(9, Char '4') = 10 with action having index 81
+delta(9, Char '5') = 10 with action having index 81
+delta(9, Char '6') = 10 with action having index 81
+delta(9, Char '7') = 10 with action having index 81
+delta(9, Char '8') = 10 with action having index 81
+delta(9, Char '9') = 10 with action having index 81
+delta(10, Char ') = 11 with action having index 0
+delta(10, Char '0') = 12 with action having index 81
+delta(10, Char '1') = 12 with action having index 81
+delta(10, Char '2') = 12 with action having index 81
+delta(10, Char '3') = 12 with action having index 81
+delta(10, Char '4') = 12 with action having index 81
+delta(10, Char '5') = 12 with action having index 81
+delta(10, Char '6') = 12 with action having index 81
+delta(10, Char '7') = 12 with action having index 81
+delta(10, Char '8') = 12 with action having index 81
+delta(10, Char '9') = 12 with action having index 81
+delta(11, Char '0') = 12 with action having index 81
+delta(11, Char '1') = 12 with action having index 81
+delta(11, Char '2') = 12 with action having index 81
+delta(11, Char '3') = 12 with action having index 81
+delta(11, Char '4') = 12 with action having index 81
+delta(11, Char '5') = 12 with action having index 81
+delta(11, Char '6') = 12 with action having index 81
+delta(11, Char '7') = 12 with action having index 81
+delta(11, Char '8') = 12 with action having index 81
+delta(11, Char '9') = 12 with action having index 81
+delta(12, Char ') = 11 with action having index 0
+delta(12, Char '0') = 12 with action having index 81
+delta(12, Char '1') = 12 with action having index 81
+delta(12, Char '2') = 12 with action having index 81
+delta(12, Char '3') = 12 with action having index 81
+delta(12, Char '4') = 12 with action having index 81
+delta(12, Char '5') = 12 with action having index 81
+delta(12, Char '6') = 12 with action having index 81
+delta(12, Char '7') = 12 with action having index 81
+delta(12, Char '8') = 12 with action having index 81
+delta(12, Char '9') = 12 with action having index 81
+delta(13, Char ') = 14 with action having index 0
+delta(13, Char '0') = 15 with action having index 88
+delta(13, Char '1') = 15 with action having index 88
+delta(13, Char '2') = 15 with action having index 88
+delta(13, Char '3') = 15 with action having index 88
+delta(13, Char '4') = 15 with action having index 88
+delta(13, Char '5') = 15 with action having index 88
+delta(13, Char '6') = 15 with action having index 88
+delta(13, Char '7') = 15 with action having index 88
+delta(13, Char '8') = 15 with action having index 88
+delta(13, Char '9') = 15 with action having index 88
+delta(13, Char 'E') = 6 with action having index 43
+delta(13, Char 'e') = 7 with action having index 43
+delta(14, Char '0') = 15 with action having index 88
+delta(14, Char '1') = 15 with action having index 88
+delta(14, Char '2') = 15 with action having index 88
+delta(14, Char '3') = 15 with action having index 88
+delta(14, Char '4') = 15 with action having index 88
+delta(14, Char '5') = 15 with action having index 88
+delta(14, Char '6') = 15 with action having index 88
+delta(14, Char '7') = 15 with action having index 88
+delta(14, Char '8') = 15 with action having index 88
+delta(14, Char '9') = 15 with action having index 88
+delta(15, Char ') = 14 with action having index 0
+delta(15, Char '0') = 15 with action having index 88
+delta(15, Char '1') = 15 with action having index 88
+delta(15, Char '2') = 15 with action having index 88
+delta(15, Char '3') = 15 with action having index 88
+delta(15, Char '4') = 15 with action having index 88
+delta(15, Char '5') = 15 with action having index 88
+delta(15, Char '6') = 15 with action having index 88
+delta(15, Char '7') = 15 with action having index 88
+delta(15, Char '8') = 15 with action having index 88
+delta(15, Char '9') = 15 with action having index 88
+delta(15, Char 'E') = 6 with action having index 43
+delta(15, Char 'e') = 7 with action having index 43
+delta(16, Char '0') = 27 with action having index 60
+delta(16, Char '1') = 27 with action having index 60
+delta(17, Char '0') = 21 with action having index 74
+delta(17, Char '1') = 21 with action having index 74
+delta(17, Char '2') = 21 with action having index 74
+delta(17, Char '3') = 21 with action having index 74
+delta(17, Char '4') = 21 with action having index 74
+delta(17, Char '5') = 21 with action having index 74
+delta(17, Char '6') = 21 with action having index 74
+delta(17, Char '7') = 21 with action having index 74
+delta(17, Char '8') = 21 with action having index 74
+delta(17, Char '9') = 21 with action having index 74
+delta(17, Char 'A') = 21 with action having index 74
+delta(17, Char 'B') = 21 with action having index 74
+delta(17, Char 'C') = 21 with action having index 74
+delta(17, Char 'D') = 21 with action having index 74
+delta(17, Char 'E') = 21 with action having index 74
+delta(17, Char 'F') = 21 with action having index 74
+delta(17, Char 'a') = 21 with action having index 74
+delta(17, Char 'b') = 21 with action having index 74
+delta(17, Char 'c') = 21 with action having index 74
+delta(17, Char 'd') = 21 with action having index 74
+delta(17, Char 'e') = 21 with action having index 74
+delta(17, Char 'f') = 21 with action having index 74
+delta(18, Char '0') = 27 with action having index 60
+delta(18, Char '1') = 27 with action having index 60
+delta(19, Char '0') = 24 with action having index 67
+delta(19, Char '1') = 24 with action having index 67
+delta(19, Char '2') = 24 with action having index 67
+delta(19, Char '3') = 24 with action having index 67
+delta(19, Char '4') = 24 with action having index 67
+delta(19, Char '5') = 24 with action having index 67
+delta(19, Char '6') = 24 with action having index 67
+delta(19, Char '7') = 24 with action having index 67
+delta(20, Char '0') = 21 with action having index 74
+delta(20, Char '1') = 21 with action having index 74
+delta(20, Char '2') = 21 with action having index 74
+delta(20, Char '3') = 21 with action having index 74
+delta(20, Char '4') = 21 with action having index 74
+delta(20, Char '5') = 21 with action having index 74
+delta(20, Char '6') = 21 with action having index 74
+delta(20, Char '7') = 21 with action having index 74
+delta(20, Char '8') = 21 with action having index 74
+delta(20, Char '9') = 21 with action having index 74
+delta(20, Char 'A') = 21 with action having index 74
+delta(20, Char 'B') = 21 with action having index 74
+delta(20, Char 'C') = 21 with action having index 74
+delta(20, Char 'D') = 21 with action having index 74
+delta(20, Char 'E') = 21 with action having index 74
+delta(20, Char 'F') = 21 with action having index 74
+delta(20, Char 'a') = 21 with action having index 74
+delta(20, Char 'b') = 21 with action having index 74
+delta(20, Char 'c') = 21 with action having index 74
+delta(20, Char 'd') = 21 with action having index 74
+delta(20, Char 'e') = 21 with action having index 74
+delta(20, Char 'f') = 21 with action having index 74
+delta(21, Char ') = 22 with action having index 0
+delta(21, Char '0') = 23 with action having index 74
+delta(21, Char '1') = 23 with action having index 74
+delta(21, Char '2') = 23 with action having index 74
+delta(21, Char '3') = 23 with action having index 74
+delta(21, Char '4') = 23 with action having index 74
+delta(21, Char '5') = 23 with action having index 74
+delta(21, Char '6') = 23 with action having index 74
+delta(21, Char '7') = 23 with action having index 74
+delta(21, Char '8') = 23 with action having index 74
+delta(21, Char '9') = 23 with action having index 74
+delta(21, Char 'A') = 23 with action having index 74
+delta(21, Char 'B') = 23 with action having index 74
+delta(21, Char 'C') = 23 with action having index 74
+delta(21, Char 'D') = 23 with action having index 74
+delta(21, Char 'E') = 23 with action having index 74
+delta(21, Char 'F') = 23 with action having index 74
+delta(21, Char 'a') = 23 with action having index 74
+delta(21, Char 'b') = 23 with action having index 74
+delta(21, Char 'c') = 23 with action having index 74
+delta(21, Char 'd') = 23 with action having index 74
+delta(21, Char 'e') = 23 with action having index 74
+delta(21, Char 'f') = 23 with action having index 74
+delta(22, Char '0') = 23 with action having index 74
+delta(22, Char '1') = 23 with action having index 74
+delta(22, Char '2') = 23 with action having index 74
+delta(22, Char '3') = 23 with action having index 74
+delta(22, Char '4') = 23 with action having index 74
+delta(22, Char '5') = 23 with action having index 74
+delta(22, Char '6') = 23 with action having index 74
+delta(22, Char '7') = 23 with action having index 74
+delta(22, Char '8') = 23 with action having index 74
+delta(22, Char '9') = 23 with action having index 74
+delta(22, Char 'A') = 23 with action having index 74
+delta(22, Char 'B') = 23 with action having index 74
+delta(22, Char 'C') = 23 with action having index 74
+delta(22, Char 'D') = 23 with action having index 74
+delta(22, Char 'E') = 23 with action having index 74
+delta(22, Char 'F') = 23 with action having index 74
+delta(22, Char 'a') = 23 with action having index 74
+delta(22, Char 'b') = 23 with action having index 74
+delta(22, Char 'c') = 23 with action having index 74
+delta(22, Char 'd') = 23 with action having index 74
+delta(22, Char 'e') = 23 with action having index 74
+delta(22, Char 'f') = 23 with action having index 74
+delta(23, Char ') = 22 with action having index 0
+delta(23, Char '0') = 23 with action having index 74
+delta(23, Char '1') = 23 with action having index 74
+delta(23, Char '2') = 23 with action having index 74
+delta(23, Char '3') = 23 with action having index 74
+delta(23, Char '4') = 23 with action having index 74
+delta(23, Char '5') = 23 with action having index 74
+delta(23, Char '6') = 23 with action having index 74
+delta(23, Char '7') = 23 with action having index 74
+delta(23, Char '8') = 23 with action having index 74
+delta(23, Char '9') = 23 with action having index 74
+delta(23, Char 'A') = 23 with action having index 74
+delta(23, Char 'B') = 23 with action having index 74
+delta(23, Char 'C') = 23 with action having index 74
+delta(23, Char 'D') = 23 with action having index 74
+delta(23, Char 'E') = 23 with action having index 74
+delta(23, Char 'F') = 23 with action having index 74
+delta(23, Char 'a') = 23 with action having index 74
+delta(23, Char 'b') = 23 with action having index 74
+delta(23, Char 'c') = 23 with action having index 74
+delta(23, Char 'd') = 23 with action having index 74
+delta(23, Char 'e') = 23 with action having index 74
+delta(23, Char 'f') = 23 with action having index 74
+delta(24, Char ') = 25 with action having index 0
+delta(24, Char '0') = 26 with action having index 67
+delta(24, Char '1') = 26 with action having index 67
+delta(24, Char '2') = 26 with action having index 67
+delta(24, Char '3') = 26 with action having index 67
+delta(24, Char '4') = 26 with action having index 67
+delta(24, Char '5') = 26 with action having index 67
+delta(24, Char '6') = 26 with action having index 67
+delta(24, Char '7') = 26 with action having index 67
+delta(25, Char '0') = 26 with action having index 67
+delta(25, Char '1') = 26 with action having index 67
+delta(25, Char '2') = 26 with action having index 67
+delta(25, Char '3') = 26 with action having index 67
+delta(25, Char '4') = 26 with action having index 67
+delta(25, Char '5') = 26 with action having index 67
+delta(25, Char '6') = 26 with action having index 67
+delta(25, Char '7') = 26 with action having index 67
+delta(26, Char ') = 25 with action having index 0
+delta(26, Char '0') = 26 with action having index 67
+delta(26, Char '1') = 26 with action having index 67
+delta(26, Char '2') = 26 with action having index 67
+delta(26, Char '3') = 26 with action having index 67
+delta(26, Char '4') = 26 with action having index 67
+delta(26, Char '5') = 26 with action having index 67
+delta(26, Char '6') = 26 with action having index 67
+delta(26, Char '7') = 26 with action having index 67
+delta(27, Char ') = 28 with action having index 0
+delta(27, Char '0') = 29 with action having index 60
+delta(27, Char '1') = 29 with action having index 60
+delta(28, Char '0') = 29 with action having index 60
+delta(28, Char '1') = 29 with action having index 60
+delta(29, Char ') = 28 with action having index 0
+delta(29, Char '0') = 29 with action having index 60
+delta(29, Char '1') = 29 with action having index 60
+
+***********************************************************
+*          Minimized deterministic automaton:             *
+***********************************************************
+Number of states of minimized DFA: 15.
+Begin state of minimized DFA:      0.
+Final states of minimized DFA: {1,2,3,4,5,6,7}
+delta(0, Char '0') = 7 with action having index 53
+delta(0, Char '1') = 6 with action having index 53
+delta(0, Char '2') = 6 with action having index 53
+delta(0, Char '3') = 6 with action having index 53
+delta(0, Char '4') = 6 with action having index 53
+delta(0, Char '5') = 6 with action having index 53
+delta(0, Char '6') = 6 with action having index 53
+delta(0, Char '7') = 6 with action having index 53
+delta(0, Char '8') = 6 with action having index 53
+delta(0, Char '9') = 6 with action having index 53
+delta(1, Char ') = 8 with action having index 0
+delta(1, Char '0') = 1 with action having index 60
+delta(1, Char '1') = 1 with action having index 60
+delta(2, Char ') = 9 with action having index 0
+delta(2, Char '0') = 2 with action having index 67
+delta(2, Char '1') = 2 with action having index 67
+delta(2, Char '2') = 2 with action having index 67
+delta(2, Char '3') = 2 with action having index 67
+delta(2, Char '4') = 2 with action having index 67
+delta(2, Char '5') = 2 with action having index 67
+delta(2, Char '6') = 2 with action having index 67
+delta(2, Char '7') = 2 with action having index 67
+delta(3, Char ') = 10 with action having index 0
+delta(3, Char '0') = 3 with action having index 81
+delta(3, Char '1') = 3 with action having index 81
+delta(3, Char '2') = 3 with action having index 81
+delta(3, Char '3') = 3 with action having index 81
+delta(3, Char '4') = 3 with action having index 81
+delta(3, Char '5') = 3 with action having index 81
+delta(3, Char '6') = 3 with action having index 81
+delta(3, Char '7') = 3 with action having index 81
+delta(3, Char '8') = 3 with action having index 81
+delta(3, Char '9') = 3 with action having index 81
+delta(4, Char ') = 11 with action having index 0
+delta(4, Char '0') = 4 with action having index 88
+delta(4, Char '1') = 4 with action having index 88
+delta(4, Char '2') = 4 with action having index 88
+delta(4, Char '3') = 4 with action having index 88
+delta(4, Char '4') = 4 with action having index 88
+delta(4, Char '5') = 4 with action having index 88
+delta(4, Char '6') = 4 with action having index 88
+delta(4, Char '7') = 4 with action having index 88
+delta(4, Char '8') = 4 with action having index 88
+delta(4, Char '9') = 4 with action having index 88
+delta(4, Char 'E') = 14 with action having index 43
+delta(4, Char 'e') = 14 with action having index 43
+delta(5, Char ') = 13 with action having index 0
+delta(5, Char '0') = 5 with action having index 74
+delta(5, Char '1') = 5 with action having index 74
+delta(5, Char '2') = 5 with action having index 74
+delta(5, Char '3') = 5 with action having index 74
+delta(5, Char '4') = 5 with action having index 74
+delta(5, Char '5') = 5 with action having index 74
+delta(5, Char '6') = 5 with action having index 74
+delta(5, Char '7') = 5 with action having index 74
+delta(5, Char '8') = 5 with action having index 74
+delta(5, Char '9') = 5 with action having index 74
+delta(5, Char 'A') = 5 with action having index 74
+delta(5, Char 'B') = 5 with action having index 74
+delta(5, Char 'C') = 5 with action having index 74
+delta(5, Char 'D') = 5 with action having index 74
+delta(5, Char 'E') = 5 with action having index 74
+delta(5, Char 'F') = 5 with action having index 74
+delta(5, Char 'a') = 5 with action having index 74
+delta(5, Char 'b') = 5 with action having index 74
+delta(5, Char 'c') = 5 with action having index 74
+delta(5, Char 'd') = 5 with action having index 74
+delta(5, Char 'e') = 5 with action having index 74
+delta(5, Char 'f') = 5 with action having index 74
+delta(6, Char ') = 12 with action having index 0
+delta(6, Char '.') = 11 with action having index 43
+delta(6, Char '0') = 6 with action having index 53
+delta(6, Char '1') = 6 with action having index 53
+delta(6, Char '2') = 6 with action having index 53
+delta(6, Char '3') = 6 with action having index 53
+delta(6, Char '4') = 6 with action having index 53
+delta(6, Char '5') = 6 with action having index 53
+delta(6, Char '6') = 6 with action having index 53
+delta(6, Char '7') = 6 with action having index 53
+delta(6, Char '8') = 6 with action having index 53
+delta(6, Char '9') = 6 with action having index 53
+delta(6, Char 'E') = 14 with action having index 43
+delta(6, Char 'e') = 14 with action having index 43
+delta(7, Char ') = 12 with action having index 0
+delta(7, Char '.') = 11 with action having index 43
+delta(7, Char '0') = 6 with action having index 53
+delta(7, Char '1') = 6 with action having index 53
+delta(7, Char '2') = 6 with action having index 53
+delta(7, Char '3') = 6 with action having index 53
+delta(7, Char '4') = 6 with action having index 53
+delta(7, Char '5') = 6 with action having index 53
+delta(7, Char '6') = 6 with action having index 53
+delta(7, Char '7') = 6 with action having index 53
+delta(7, Char '8') = 6 with action having index 53
+delta(7, Char '9') = 6 with action having index 53
+delta(7, Char 'B') = 8 with action having index 0
+delta(7, Char 'E') = 14 with action having index 43
+delta(7, Char 'X') = 13 with action having index 0
+delta(7, Char 'b') = 8 with action having index 0
+delta(7, Char 'e') = 14 with action having index 43
+delta(7, Char 'o') = 9 with action having index 0
+delta(7, Char 'x') = 13 with action having index 0
+delta(8, Char '0') = 1 with action having index 60
+delta(8, Char '1') = 1 with action having index 60
+delta(9, Char '0') = 2 with action having index 67
+delta(9, Char '1') = 2 with action having index 67
+delta(9, Char '2') = 2 with action having index 67
+delta(9, Char '3') = 2 with action having index 67
+delta(9, Char '4') = 2 with action having index 67
+delta(9, Char '5') = 2 with action having index 67
+delta(9, Char '6') = 2 with action having index 67
+delta(9, Char '7') = 2 with action having index 67
+delta(10, Char '0') = 3 with action having index 81
+delta(10, Char '1') = 3 with action having index 81
+delta(10, Char '2') = 3 with action having index 81
+delta(10, Char '3') = 3 with action having index 81
+delta(10, Char '4') = 3 with action having index 81
+delta(10, Char '5') = 3 with action having index 81
+delta(10, Char '6') = 3 with action having index 81
+delta(10, Char '7') = 3 with action having index 81
+delta(10, Char '8') = 3 with action having index 81
+delta(10, Char '9') = 3 with action having index 81
+delta(11, Char '0') = 4 with action having index 88
+delta(11, Char '1') = 4 with action having index 88
+delta(11, Char '2') = 4 with action having index 88
+delta(11, Char '3') = 4 with action having index 88
+delta(11, Char '4') = 4 with action having index 88
+delta(11, Char '5') = 4 with action having index 88
+delta(11, Char '6') = 4 with action having index 88
+delta(11, Char '7') = 4 with action having index 88
+delta(11, Char '8') = 4 with action having index 88
+delta(11, Char '9') = 4 with action having index 88
+delta(12, Char '0') = 6 with action having index 53
+delta(12, Char '1') = 6 with action having index 53
+delta(12, Char '2') = 6 with action having index 53
+delta(12, Char '3') = 6 with action having index 53
+delta(12, Char '4') = 6 with action having index 53
+delta(12, Char '5') = 6 with action having index 53
+delta(12, Char '6') = 6 with action having index 53
+delta(12, Char '7') = 6 with action having index 53
+delta(12, Char '8') = 6 with action having index 53
+delta(12, Char '9') = 6 with action having index 53
+delta(13, Char '0') = 5 with action having index 74
+delta(13, Char '1') = 5 with action having index 74
+delta(13, Char '2') = 5 with action having index 74
+delta(13, Char '3') = 5 with action having index 74
+delta(13, Char '4') = 5 with action having index 74
+delta(13, Char '5') = 5 with action having index 74
+delta(13, Char '6') = 5 with action having index 74
+delta(13, Char '7') = 5 with action having index 74
+delta(13, Char '8') = 5 with action having index 74
+delta(13, Char '9') = 5 with action having index 74
+delta(13, Char 'A') = 5 with action having index 74
+delta(13, Char 'B') = 5 with action having index 74
+delta(13, Char 'C') = 5 with action having index 74
+delta(13, Char 'D') = 5 with action having index 74
+delta(13, Char 'E') = 5 with action having index 74
+delta(13, Char 'F') = 5 with action having index 74
+delta(13, Char 'a') = 5 with action having index 74
+delta(13, Char 'b') = 5 with action having index 74
+delta(13, Char 'c') = 5 with action having index 74
+delta(13, Char 'd') = 5 with action having index 74
+delta(13, Char 'e') = 5 with action having index 74
+delta(13, Char 'f') = 5 with action having index 74
+delta(14, Char '+') = 10 with action having index 96
+delta(14, Char '-') = 10 with action having index 96
+delta(14, Char '0') = 3 with action having index 81
+delta(14, Char '1') = 3 with action having index 81
+delta(14, Char '2') = 3 with action having index 81
+delta(14, Char '3') = 3 with action having index 81
+delta(14, Char '4') = 3 with action having index 81
+delta(14, Char '5') = 3 with action having index 81
+delta(14, Char '6') = 3 with action having index 81
+delta(14, Char '7') = 3 with action having index 81
+delta(14, Char '8') = 3 with action having index 81
+delta(14, Char '9') = 3 with action having index 81
+
+***********************************************************
+*          Minimized deterministic automaton              *
+*              with groupped transitions:                 *
+***********************************************************
+Number of states of minimized DFA with grouped transitions: 15.
+Begin state of minimized DFA:                               0.
+Final states of minimized DFA: {1,2,3,4,5,6,7}
+delta(0, Set_of_cs {'0'}) = 7 with action having index 53
+delta(0, Set_of_cs {'1','2','3','4','5','6','7','8','9'}) = 6 with action having index 53
+delta(1, Set_of_cs {'}) = 8 with action having index 0
+delta(1, Set_of_cs {'0','1'}) = 1 with action having index 60
+delta(2, Set_of_cs {'}) = 9 with action having index 0
+delta(2, Set_of_cs {'0','1','2','3','4','5','6','7'}) = 2 with action having index 67
+delta(3, Set_of_cs {'}) = 10 with action having index 0
+delta(3, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 3 with action having index 81
+delta(4, Set_of_cs {'}) = 11 with action having index 0
+delta(4, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 4 with action having index 88
+delta(4, Set_of_cs {'E','e'}) = 14 with action having index 43
+delta(5, Set_of_cs {'}) = 13 with action having index 0
+delta(5, Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = 5 with action having index 74
+delta(6, Set_of_cs {'}) = 12 with action having index 0
+delta(6, Set_of_cs {'.'}) = 11 with action having index 43
+delta(6, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 6 with action having index 53
+delta(6, Set_of_cs {'E','e'}) = 14 with action having index 43
+delta(7, Set_of_cs {'}) = 12 with action having index 0
+delta(7, Set_of_cs {'.'}) = 11 with action having index 43
+delta(7, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 6 with action having index 53
+delta(7, Set_of_cs {'B','b'}) = 8 with action having index 0
+delta(7, Set_of_cs {'E','e'}) = 14 with action having index 43
+delta(7, Set_of_cs {'X','x'}) = 13 with action having index 0
+delta(7, Set_of_cs {'o'}) = 9 with action having index 0
+delta(8, Set_of_cs {'0','1'}) = 1 with action having index 60
+delta(9, Set_of_cs {'0','1','2','3','4','5','6','7'}) = 2 with action having index 67
+delta(10, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 3 with action having index 81
+delta(11, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 4 with action having index 88
+delta(12, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 6 with action having index 53
+delta(13, Set_of_cs {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','a','b','c','d','e','f'}) = 5 with action having index 74
+delta(14, Set_of_cs {'+','-'}) = 10 with action having index 96
+delta(14, Set_of_cs {'0','1','2','3','4','5','6','7','8','9'}) = 3 with action having index 81
+string 0x123ABCDEF is matched
+string 0X127aAbBcCdDeEfF is matched
+string 0b11011011 is matched
+string 0B110111 is matched
+string 0123789456 is matched
+string 76543218900 is matched
+string 0Ae is not matched
+string identifier is not matched
+Result of the function match_all: not all strings are matched.
