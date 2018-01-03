@@ -1,0 +1,2 @@
+{[:digits:]$AddDecNumb('?[:digits:]$AddDecNumb)*(.$SetFlag[:digits:]$AddDecToFract('?[:digits:]$AddDecToFract)*)?((E|e)$SetFlag(\+|-)$WhatSign?[:digits:]$AddToDegre('?[:digits:]$AddToDegre)*)?
+|0o[:odigits:]$AddOctNumb('?[:odigits:]$AddOctNumb)*|0(b|B)[:bdigits:]$AddBinNumb('?[:bdigits:]$AddBinNumb)*|0(x|X)[:xdigits:]$AddHexNumb('?[:xdigits:]$AddHexNumb)*}

@@ -68,17 +68,60 @@ std::u32string init_testing(const char* name)
     return U"";
 }
 
-static const char32_t* write_act_name = U"write";
-static const char32_t* write_act_body = U"buffer += ch;";
+// %action SetFlag "is_float = true;"
+//
+// %action AddDecNumb "int_value = int_value*10 + digit2int(ch);"
+//
+// %action AddBinNumb "int_value = (int_value << 1) + digit2int(ch);"
+//
+// %action AddOctNumb "int_value = (int_value << 3) + digit2int(ch);"
+//
+// %action AddHexNumb "int_value = (int_value << 4) + digit2int(ch);"
+//
+// %action AddToDegre "exponent = exponent*10 + digit2int(ch);"
+//
+// %action AddDecToFract "fract_part = fract_part*10 + digit2int(ch); ++num_of_digits;"
+//
+// %action WhatSign "sign_of_degree = (ch == U'+')?1:(-1);"
+//
+// {[:digits:]$AddDecNumb('?[:digits:]$AddDecNumb)*(.$SetFlag[:digits:]$AddDecToFract('?[:digits:]$AddDecToFract)*)
+// ?((E|e)$SetFlag(\+|-)$WhatSign?[:digits:]$AddToDegre('?[:digits:]$AddToDegre)*)?
+// |0o[:odigits:]$AddOctNumb('?[:odigits:]$AddOctNumb)*|
+// 0(b|B)[:bdigits:]$AddBinNumb('?[:bdigits:]$AddBinNumb)*|
+// 0(x|X)[:xdigits:]$AddHexNumb('?[:xdigits:]$AddHexNumb)*}
 
-static const char32_t* add_dec_digit_act_name = U"add_dec_digit";
-static const char32_t* add_dec_digit_act_body = U"token.value = token.value * 10 + digit2int(ch);";
 
-static const char32_t* add_hex_digit_act_name = U"add_hex_digit";
-static const char32_t* add_hex_digit_act_body = U"token.value = token.value << 4 + digit2int(ch);";
+// static const char32_t* write_act_name = U"write";
+// static const char32_t* write_act_body = U"buffer += ch;";
+//
+// static const char32_t* add_dec_digit_act_name = U"add_dec_digit";
+// static const char32_t* add_dec_digit_act_body = U"token.value = token.value * 10 + digit2int(ch);";
+//
+// static const char32_t* add_hex_digit_act_name = U"add_hex_digit";
+// static const char32_t* add_hex_digit_act_body = U"token.value = token.value << 4 + digit2int(ch);";
+//
+// static const char32_t* add_bin_digit_act_name = U"add_bin_digit";
+// static const char32_t* add_bin_digit_act_body = U"token.value = token.value << 1 + digit2int(ch);";
 
-static const char32_t* add_bin_digit_act_name = U"add_bin_digit";
-static const char32_t* add_bin_digit_act_body = U"token.value = token.value << 1 + digit2int(ch);";
+struct Act_description{
+    std::u32string name;
+    std::u32string body;
+};
+
+static const Act_description added_actions[] = {
+    {U"write",         U"buffer += ch;"},
+    {U"add_dec_digit", U"token.value = token.value * 10 + digit2int(ch);"},
+    {U"add_hex_digit", U"token.value = token.value << 4 + digit2int(ch);"},
+    {U"add_bin_digit", U"token.value = token.value << 1 + digit2int(ch);"},
+    {U"SetFlag",       U"is_float = true;"},
+    {U"AddDecNumb",    U"int_value = int_value*10 + digit2int(ch);" },
+    {U"AddBinNumb",    U"int_value = (int_value << 1) + digit2int(ch);"},
+    {U"AddOctNumb",    U"int_value = (int_value << 3) + digit2int(ch);"},
+    {U"AddHexNumb",    U"int_value = (int_value << 4) + digit2int(ch);"},
+    {U"AddToDegre",    U"exponent = exponent*10 + digit2int(ch);"},
+    {U"AddDecToFract", U"fract_part = fract_part*10 + digit2int(ch); ++num_of_digits;"},
+    {U"WhatSign",      U"sign_of_degree = (ch == U'+')?1:(-1);"}
+};
 
 static const char* before_fusing =
     R"~(
@@ -164,10 +207,13 @@ int main(int argc, char** argv)
             auto esc           = std::make_shared<Expr_scaner>(loc, etr, trie_for_sets);
             auto scope         = std::make_shared<Scope>();
 
-            add_action(etr, scope, write_act_name, write_act_body);
-            add_action(etr, scope, add_dec_digit_act_name, add_dec_digit_act_body);
-            add_action(etr, scope, add_hex_digit_act_name, add_hex_digit_act_body);
-            add_action(etr, scope, add_bin_digit_act_name, add_bin_digit_act_body);
+            for(auto& a : added_actions){
+                add_action(etr, scope, a.name, a.body);
+            }
+//             add_action(etr, scope, write_act_name, write_act_body);
+//             add_action(etr, scope, add_dec_digit_act_name, add_dec_digit_act_body);
+//             add_action(etr, scope, add_hex_digit_act_name, add_hex_digit_act_body);
+//             add_action(etr, scope, add_bin_digit_act_name, add_bin_digit_act_body);
 
 //             Id_attributes iattr;
 //             iattr.kind             = Action_name;
